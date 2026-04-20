@@ -477,6 +477,7 @@ def genera_html(dati, loghi, output_path='index.html'):
 <li><strong>17:00–17:45</strong> · 🏆 Cerimonia di chiusura e premiazioni</li>
 </ul>
 <p style="margin-top:6px"><strong>Apertura</strong>: Ven 1 Maggio · 15:00–15:45 al PalaCardelli</p>
+<p style="margin-top:10px"><a href="torneo_programma.xlsx" download>📥 Scarica il programma completo (Excel)</a></p>
 </div>
 {slots_html}
 </section>
