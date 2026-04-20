@@ -1,0 +1,43 @@
+name: Rigenera HTML ed Excel
+
+# Si attiva quando il file dati_torneo.json viene modificato
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dati_torneo.json'
+      - 'genera.py'
+      - 'logos_b64.json'
+  workflow_dispatch:  # permette l'esecuzione manuale dall'interfaccia GitHub
+
+jobs:
+  rigenera:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout del repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installa dipendenze
+        run: pip install openpyxl
+
+      - name: Rigenera HTML ed Excel
+        run: python genera.py
+
+      - name: Commit automatico dei file generati
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html torneo_programma.xlsx
+          if ! git diff --staged --quiet; then
+            git commit -m "🤖 Rigenerazione automatica HTML ed Excel"
+            git push
+          else
+            echo "Nessun cambiamento nei file generati"
+          fi
