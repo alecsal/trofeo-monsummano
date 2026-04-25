@@ -186,27 +186,12 @@ def genera_html(dati, loghi, output_path='index.html'):
             except Exception:
                 end_o = ''
 
-            # Badge mensa
+            # Badge slot (mensa / finalissime) — letti da dati['mensa']['slot_badges']
             mensa = ''
-            if gcode == 'G1':
-                if ora == '10:00':
-                    mensa = '<span class="badge-mensa verde">🍽 Mensa 13:00</span>'
-                elif ora == '12:00':
-                    mensa = '<span class="badge-mensa arancio">✈️ Fuori regione · Mensa 14:00</span>'
-            elif gcode == 'G2':
-                if ora == '09:00':
-                    mensa = '<span class="badge-mensa verde">🍽 Mensa 12:00</span>'
-                elif ora == '11:00':
-                    mensa = '<span class="badge-mensa arancio">🍽 Mensa 13:00</span>'
-            elif gcode == 'G3':
-                if ora == '09:00':
-                    mensa = '<span class="badge-mensa verde">🍽 Mensa 12:00</span>'
-                elif ora == '11:00':
-                    mensa = '<span class="badge-mensa arancio">🍽 Mensa 13:00</span>'
-                elif ora == '13:00':
-                    mensa = '<span class="badge-mensa gold">🏆 Finalissima U13</span>'
-                elif ora == '15:00':
-                    mensa = '<span class="badge-mensa gold">🏆 Finalissima U14</span>'
+            for b in dati.get('mensa', {}).get('slot_badges', []):
+                if b['giorno'] == gcode and b['ora'] == ora:
+                    mensa = f'<span class="badge-mensa {b["colore"]}">{b["testo"]}</span>'
+                    break
 
             end_disp = partite_slot[0].get('ora_fine', end_o) if is_cer_only else end_o
             slots_html += f'<div class="slot-block"><div class="slot-header"><div class="slot-time">{ora}</div><div class="slot-end">→ {end_disp}</div>{mensa}</div><div class="slot-matches">\n'
@@ -309,93 +294,67 @@ def genera_html(dati, loghi, output_path='index.html'):
     team_strip = '\n'.join(f'<img src="{loghi.get(next((s["logo_key"] for g in dati["squadre"].values() for s in g if s["nome_breve"] == t), ""), "")}" alt="{t}" title="{t}">' for t in strip_nomi)
 
     # ── SEZIONE MENSA ──
-    # Costruisco dinamicamente dai dati
-    def mensa_slot_items(slot_giorno, slot_ora):
-        """Restituisce [(cat, nome_squadra, provenienza), ...] per il turno mensa corrispondente."""
-        partite_slot = [p for p in dati['partite']
-                        if p['giorno'] == slot_giorno and p['ora'] == slot_ora
-                        and not p.get('placeholder')]
-        imp_label = {'A': '🏟 PalaCardelli', 'B': 'Cintolese', 'C': 'Salutati', 'D': 'Geodetica'}
+    # Tutto generato da dati['mensa'] (info_box, slot_badges, giorni[].turni[])
+    mensa_cfg = dati.get('mensa', {})
+
+    imp_label_short = {'A': '🏟 PalaCardelli', 'B': 'Cintolese', 'C': 'Salutati', 'D': 'Geodetica'}
+
+    def turno_items(turno):
+        """Restituisce [(cat, nome, provenienza, logo_html), ...] per un turno mensa."""
         items = []
-        for p in partite_slot:
-            items.append((p['categoria'], p['squadra1'], f"{imp_label[p['impianto']]} {slot_ora}"))
-            items.append((p['categoria'], p['squadra2'], f"{imp_label[p['impianto']]} {slot_ora}"))
+        if 'fonte_partite' in turno:
+            for fp in turno['fonte_partite']:
+                partite_slot = [p for p in dati['partite']
+                                if p['giorno'] == fp['giorno'] and p['ora'] == fp['ora']
+                                and not p.get('placeholder')]
+                for p in partite_slot:
+                    da = f"{imp_label_short.get(p['impianto'], p['impianto'])} {fp['ora']}"
+                    items.append((p['categoria'], p['squadra1'], da, get_logo(p['squadra1'], dati, loghi)))
+                    items.append((p['categoria'], p['squadra2'], da, get_logo(p['squadra2'], dati, loghi)))
+        for v in turno.get('voci', []):
+            items.append((v['categoria'], v['nome'], v['provenienza'], ''))
         return items
 
-    def mensa_list_html(items):
+    def turno_list_html(items):
         h = ''
-        for cat, sq, da in items:
+        for cat, sq, da, logo in items:
             cat_cls = 'cu13' if cat == 'U13' else 'cu14'
-            logo = get_logo(sq, dati, loghi)
-            h += f'<li><img src="{logo}"><span class="tl-cat {cat_cls}">{cat}</span><span class="tl-name">{sq}</span><span class="tl-from">{da}</span></li>\n'
+            img = f'<img src="{logo}">' if logo else ''
+            h += f'<li>{img}<span class="tl-cat {cat_cls}">{cat}</span><span class="tl-name">{sq}</span><span class="tl-from">{da}</span></li>\n'
         return h
 
-    g1_t1 = mensa_slot_items('G1', '10:00')
-    g1_t2 = mensa_slot_items('G1', '12:00')
-    g2_t1 = mensa_slot_items('G2', '09:00')
-    g2_t2 = mensa_slot_items('G2', '11:00')
-
-    mensa_html = f'''<div class="info-box warn">
-<h3>⚠️ Schema in revisione (4 turni × 45 min)</h3>
-<p>Questa pagina mostra lo schema <strong>a 2 turni</strong> attuale. È in corso la pianificazione del passaggio a <strong>4 turni da 45 minuti</strong>.</p>
+    info = mensa_cfg.get('info_box')
+    info_html = ''
+    if info:
+        info_html = f'''<div class="info-box warn">
+<h3>{info["titolo"]}</h3>
+<p>{info["testo"]}</p>
 </div>
 
-<div class="mensa-block">
-<div class="mensa-day-title">GIORNO 1 — Venerdì 1 Maggio</div>
+'''
+
+    blocchi = ''
+    for giorno in mensa_cfg.get('giorni', []):
+        turni_html = ''
+        for t in giorno['turni']:
+            items = turno_items(t)
+            sub = t.get('sottotitolo', '')
+            if sub == 'auto':
+                sub = f'{len(items)} squadre'
+            turni_html += f'''<div class="turno-box">
+<div class="turno-hdr {t["colore"]}">{t["etichetta"]} · {sub}</div>
+<ul class="turno-list">{turno_list_html(items)}</ul>
+</div>
+'''
+        blocchi += f'''<div class="mensa-block">
+<div class="mensa-day-title">{giorno["titolo"]}</div>
 <div class="mensa-turni">
-<div class="turno-box">
-<div class="turno-hdr verde">🟢 Turno 13:00 · {len(g1_t1)} squadre</div>
-<ul class="turno-list">{mensa_list_html(g1_t1)}</ul>
-</div>
-<div class="turno-box">
-<div class="turno-hdr arancio">🟠 Turno 14:00 · ✈ fuori regione</div>
-<ul class="turno-list">{mensa_list_html(g1_t2)}</ul>
-</div>
-</div>
+{turni_html}</div>
 </div>
 
-<div class="mensa-block">
-<div class="mensa-day-title">GIORNO 2 — Sabato 2 Maggio</div>
-<div class="mensa-turni">
-<div class="turno-box">
-<div class="turno-hdr verde">🟢 Turno 12:00 · {len(g2_t1)} squadre</div>
-<ul class="turno-list">{mensa_list_html(g2_t1)}</ul>
-</div>
-<div class="turno-box">
-<div class="turno-hdr arancio">🟠 Turno 13:00 · {len(g2_t2)} squadre</div>
-<ul class="turno-list">{mensa_list_html(g2_t2)}</ul>
-</div>
-</div>
-</div>
+'''
 
-<div class="mensa-block">
-<div class="mensa-day-title">GIORNO 3 — Domenica 3 Maggio</div>
-<div class="mensa-turni">
-<div class="turno-box">
-<div class="turno-hdr verde">🟢 Turno 12:00 · finali mattutine U13</div>
-<ul class="turno-list">
-<li><span class="tl-cat cu13">U13</span><span class="tl-name">Finale 3°/4°</span><span class="tl-from">Pala 09:00</span></li>
-<li><span class="tl-cat cu13">U13</span><span class="tl-name">Finale 5°/6°</span><span class="tl-from">Geodetica 09:00</span></li>
-<li><span class="tl-cat cu13">U13</span><span class="tl-name">Finale 7°/8°</span><span class="tl-from">Cintolese 09:00</span></li>
-</ul>
-</div>
-<div class="turno-box">
-<div class="turno-hdr arancio">🟠 Turno 13:00 · prima delle finalissime</div>
-<ul class="turno-list">
-<li><span class="tl-cat cu14">U14</span><span class="tl-name">Finale 3°/4°</span><span class="tl-from">Pala 11:00</span></li>
-<li><span class="tl-cat cu14">U14</span><span class="tl-name">Finale 5°/6°</span><span class="tl-from">Geodetica 11:00</span></li>
-<li><span class="tl-cat cu14">U14</span><span class="tl-name">Finale 7°/8°</span><span class="tl-from">Cintolese 11:00</span></li>
-<li><span class="tl-cat cu13">U13</span><span class="tl-name">🏆 Finaliste U13</span><span class="tl-from">(prima della finale)</span></li>
-</ul>
-</div>
-<div class="turno-box">
-<div class="turno-hdr gold">🟡 Turno 14:30 · finaliste U14</div>
-<ul class="turno-list">
-<li><span class="tl-cat cu14">U14</span><span class="tl-name">🏆 Finaliste U14</span><span class="tl-from">(prima della finale 15:00)</span></li>
-</ul>
-</div>
-</div>
-</div>'''
+    mensa_html = info_html + blocchi.rstrip()
 
     # ── SEZIONE IMPIANTI ──
     imp_cards = ''
@@ -992,6 +951,98 @@ def genera_excel(dati, loghi, output_path='torneo_programma.xlsx'):
 
     for col, w in enumerate([30, 16, 18, 24], 1):
         ws5.column_dimensions[get_column_letter(col)].width = w
+
+    # ── SHEET 6: MENSA ──
+    mensa_cfg = dati.get('mensa', {})
+    if mensa_cfg.get('giorni'):
+        ws6 = wb.create_sheet('Mensa')
+        ws6.merge_cells('A1:E1')
+        ws6['A1'] = 'PROGRAMMA PRANZI'
+        ws6['A1'].font = F_TITLE
+        ws6['A1'].alignment = CENTER
+        ws6.row_dimensions[1].height = 30
+
+        info = mensa_cfg.get('info_box')
+        next_row = 3
+        if info:
+            ws6.merge_cells(start_row=next_row, start_column=1, end_row=next_row, end_column=5)
+            c = ws6.cell(row=next_row, column=1, value=f"{info['titolo']}")
+            c.font = Font(name='Calibri', size=11, bold=True, color='B45309')
+            c.fill = PatternFill('solid', fgColor='FEF3C7')
+            c.alignment = LEFT
+            c.border = BORDER
+            ws6.row_dimensions[next_row].height = 22
+            next_row += 1
+
+        for col, h in enumerate(['Turno', 'Cat.', 'Squadra / Voce', 'Provenienza', 'Note'], 1):
+            c = ws6.cell(row=next_row, column=col, value=h)
+            c.font = F_HDR
+            c.fill = FILL_HDR
+            c.alignment = CENTER
+            c.border = BORDER
+        row = next_row + 1
+
+        imp_label_short = {'A': '🏟 PalaCardelli', 'B': 'Cintolese', 'C': 'Salutati', 'D': 'Geodetica'}
+        FILL_VERDE = PatternFill('solid', fgColor='DCFCE7')
+        FILL_ARANCIO = PatternFill('solid', fgColor='FFEDD5')
+        FILL_GOLD = PatternFill('solid', fgColor='FEF3C7')
+        fill_by_color = {'verde': FILL_VERDE, 'arancio': FILL_ARANCIO, 'gold': FILL_GOLD}
+
+        for giorno in mensa_cfg['giorni']:
+            ws6.merge_cells(start_row=row, start_column=1, end_row=row, end_column=5)
+            c = ws6.cell(row=row, column=1, value=f"  {giorno['titolo']}")
+            c.font = Font(name='Calibri', size=13, bold=True, color='FFFFFF')
+            c.fill = FILL_DAY
+            c.alignment = Alignment(horizontal='left', vertical='center', indent=1)
+            ws6.row_dimensions[row].height = 22
+            row += 1
+
+            for t in giorno['turni']:
+                # Raccolgo voci del turno
+                voci = []
+                for fp in t.get('fonte_partite', []):
+                    partite_slot = [p for p in dati['partite']
+                                    if p['giorno'] == fp['giorno'] and p['ora'] == fp['ora']
+                                    and not p.get('placeholder')]
+                    for p in partite_slot:
+                        da = f"{imp_label_short.get(p['impianto'], p['impianto'])} {fp['ora']}"
+                        voci.append((p['categoria'], p['squadra1'], da))
+                        voci.append((p['categoria'], p['squadra2'], da))
+                for v in t.get('voci', []):
+                    voci.append((v['categoria'], v['nome'], v['provenienza']))
+
+                sub = t.get('sottotitolo', '')
+                if sub == 'auto':
+                    sub = f'{len(voci)} squadre'
+                turno_label = f"{t['etichetta']} · {sub}"
+                fill_t = fill_by_color.get(t['colore'], PatternFill())
+
+                # Riga di intestazione del turno
+                ws6.merge_cells(start_row=row, start_column=1, end_row=row, end_column=5)
+                c = ws6.cell(row=row, column=1, value=f"  {turno_label}")
+                c.font = F_BOLD
+                c.fill = fill_t
+                c.alignment = Alignment(horizontal='left', vertical='center', indent=1)
+                c.border = BORDER
+                row += 1
+
+                # Voci del turno
+                for cat, sq, da in voci:
+                    vals = ['', cat, sq, da, '']
+                    for col, v in enumerate(vals, 1):
+                        c = ws6.cell(row=row, column=col, value=v)
+                        c.font = F_BODY
+                        c.alignment = CENTER if col in (1, 2) else LEFT
+                        c.border = BORDER
+                        if col == 2:
+                            c.fill = FILL_U13 if cat == 'U13' else FILL_U14
+                            c.font = F_BOLD
+                    row += 1
+            row += 1  # spazio tra giorni
+
+        for col, w in enumerate([24, 8, 32, 28, 18], 1):
+            ws6.column_dimensions[get_column_letter(col)].width = w
+        ws6.freeze_panes = 'A4'
 
     wb.save(output_path)
     size_kb = Path(output_path).stat().st_size / 1024

@@ -781,5 +781,101 @@
       "giocata": false,
       "placeholder": true
     }
-  ]
+  ],
+  "mensa": {
+    "info_box": {
+      "titolo": "⚠️ Schema in revisione (4 turni × 45 min)",
+      "testo": "Questa pagina mostra lo schema <strong>a 2 turni</strong> attuale. È in corso la pianificazione del passaggio a <strong>4 turni da 45 minuti</strong>."
+    },
+    "slot_badges": [
+      { "giorno": "G1", "ora": "10:00", "colore": "verde",   "testo": "🍽 Mensa 13:00" },
+      { "giorno": "G1", "ora": "12:00", "colore": "arancio", "testo": "✈️ Fuori regione · Mensa 14:00" },
+      { "giorno": "G2", "ora": "09:00", "colore": "verde",   "testo": "🍽 Mensa 12:00" },
+      { "giorno": "G2", "ora": "11:00", "colore": "arancio", "testo": "🍽 Mensa 13:00" },
+      { "giorno": "G3", "ora": "09:00", "colore": "verde",   "testo": "🍽 Mensa 12:00" },
+      { "giorno": "G3", "ora": "11:00", "colore": "arancio", "testo": "🍽 Mensa 13:00" },
+      { "giorno": "G3", "ora": "13:00", "colore": "gold",    "testo": "🏆 Finalissima U13" },
+      { "giorno": "G3", "ora": "15:00", "colore": "gold",    "testo": "🏆 Finalissima U14" }
+    ],
+    "giorni": [
+      {
+        "codice": "G1",
+        "titolo": "GIORNO 1 — Venerdì 1 Maggio",
+        "turni": [
+          {
+            "orario": "13:00",
+            "colore": "verde",
+            "etichetta": "🟢 Turno 13:00",
+            "sottotitolo": "auto",
+            "fonte_partite": [{ "giorno": "G1", "ora": "10:00" }]
+          },
+          {
+            "orario": "14:00",
+            "colore": "arancio",
+            "etichetta": "🟠 Turno 14:00",
+            "sottotitolo": "✈ fuori regione",
+            "fonte_partite": [{ "giorno": "G1", "ora": "12:00" }]
+          }
+        ]
+      },
+      {
+        "codice": "G2",
+        "titolo": "GIORNO 2 — Sabato 2 Maggio",
+        "turni": [
+          {
+            "orario": "12:00",
+            "colore": "verde",
+            "etichetta": "🟢 Turno 12:00",
+            "sottotitolo": "auto",
+            "fonte_partite": [{ "giorno": "G2", "ora": "09:00" }]
+          },
+          {
+            "orario": "13:00",
+            "colore": "arancio",
+            "etichetta": "🟠 Turno 13:00",
+            "sottotitolo": "auto",
+            "fonte_partite": [{ "giorno": "G2", "ora": "11:00" }]
+          }
+        ]
+      },
+      {
+        "codice": "G3",
+        "titolo": "GIORNO 3 — Domenica 3 Maggio",
+        "turni": [
+          {
+            "orario": "12:00",
+            "colore": "verde",
+            "etichetta": "🟢 Turno 12:00",
+            "sottotitolo": "finali mattutine U13",
+            "voci": [
+              { "categoria": "U13", "nome": "Finale 3°/4°", "provenienza": "Pala 09:00" },
+              { "categoria": "U13", "nome": "Finale 5°/6°", "provenienza": "Geodetica 09:00" },
+              { "categoria": "U13", "nome": "Finale 7°/8°", "provenienza": "Cintolese 09:00" }
+            ]
+          },
+          {
+            "orario": "13:00",
+            "colore": "arancio",
+            "etichetta": "🟠 Turno 13:00",
+            "sottotitolo": "prima delle finalissime",
+            "voci": [
+              { "categoria": "U14", "nome": "Finale 3°/4°", "provenienza": "Pala 11:00" },
+              { "categoria": "U14", "nome": "Finale 5°/6°", "provenienza": "Geodetica 11:00" },
+              { "categoria": "U14", "nome": "Finale 7°/8°", "provenienza": "Cintolese 11:00" },
+              { "categoria": "U13", "nome": "🏆 Finaliste U13", "provenienza": "(prima della finale)" }
+            ]
+          },
+          {
+            "orario": "14:30",
+            "colore": "gold",
+            "etichetta": "🟡 Turno 14:30",
+            "sottotitolo": "finaliste U14",
+            "voci": [
+              { "categoria": "U14", "nome": "🏆 Finaliste U14", "provenienza": "(prima della finale 15:00)" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
