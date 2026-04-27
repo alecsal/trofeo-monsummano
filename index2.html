@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0d3a8a">
+<title>Calendario &amp; Risultati — Trofeo Città di Monsummano Terme 2026</title>
+<style>
+  /* =========================================================
+     PROPOSTA DI DESIGN — index2.html
+     "in linea" con lo stile istituzionale del sito ufficiale
+     trofeocittadimonsummanoterme.it (light theme, blu/rosso,
+     header con logo + nav, tabelle pulite per il calendario).
+     ========================================================= */
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --blu:        #0d3a8a;   /* blu istituzionale */
+    --blu-scuro:  #0a2a64;
+    --blu-chiaro: #2563c4;
+    --rosso:      #c4202b;   /* accento basket */
+    --oro:        #f3b829;   /* finalissime / highlights */
+    --bg:         #f5f7fa;
+    --carta:      #ffffff;
+    --bordo:      #e3e8f0;
+    --testo:      #1a2238;
+    --testo-mu:   #5a6a85;
+    --testo-dim:  #8a96ad;
+    --u13:        #1d6fea;
+    --u14:        #c4202b;
+    --cer:        #7c3aed;
+    --ok:         #1f9d55;
+  }
+
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    color:var(--testo);
+    background:var(--bg);
+    line-height:1.5;
+    font-size:15px;
+    min-height:100vh;
+    padding-bottom:40px;
+  }
+
+  a{color:var(--blu);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ───────────── TOP BAR (info, social, contatti) ───────────── */
+  .topbar{
+    background:var(--blu-scuro);
+    color:#cfd9ee;
+    font-size:12px;
+    padding:6px 0;
+    letter-spacing:.3px;
+  }
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .topbar a{color:#fff}
+  .topbar .left b{color:var(--oro)}
+
+  /* ───────────── HEADER (logo + nav) ───────────── */
+  header.site{
+    background:#fff;
+    border-bottom:1px solid var(--bordo);
+    box-shadow:0 1px 0 rgba(0,0,0,.02);
+    position:sticky;top:0;z-index:50;
+  }
+  header.site .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:18px;padding:14px 0;
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-logo{
+    width:54px;height:54px;border-radius:50%;
+    background:var(--blu);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:20px;letter-spacing:1px;
+    box-shadow:0 2px 8px rgba(13,58,138,.25);
+  }
+  .brand h1{
+    font-size:18px;font-weight:800;color:var(--blu);
+    letter-spacing:.5px;line-height:1.15;
+  }
+  .brand h1 small{
+    display:block;font-size:11px;font-weight:600;color:var(--testo-mu);
+    letter-spacing:1.2px;text-transform:uppercase;margin-top:2px;
+  }
+
+  nav.main{display:flex;align-items:center;gap:2px}
+  nav.main a{
+    color:var(--testo);font-weight:600;font-size:13px;
+    letter-spacing:.4px;text-transform:uppercase;
+    padding:10px 14px;border-radius:6px;
+    transition:background .15s,color .15s;
+  }
+  nav.main a:hover{background:#eef2f9;text-decoration:none}
+  nav.main a.active{
+    color:#fff;background:var(--blu);
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+  /* ───────────── HERO ───────────── */
+  .hero{
+    background:
+      linear-gradient(135deg,rgba(13,58,138,.92) 0%,rgba(10,42,100,.96) 100%),
+      radial-gradient(circle at 80% 20%,rgba(243,184,41,.25) 0%,transparent 50%);
+    color:#fff;
+    padding:38px 0 32px;
+    border-bottom:4px solid var(--oro);
+  }
+  .hero h2{
+    font-size:clamp(22px,3.4vw,32px);
+    font-weight:900;letter-spacing:.5px;
+    text-transform:uppercase;margin-bottom:6px;
+  }
+  .hero p{color:#cfd9ee;font-size:14px;max-width:760px}
+  .hero .crumbs{font-size:12px;color:#9eb1d6;margin-bottom:10px;letter-spacing:.6px}
+  .hero .crumbs a{color:#cfd9ee}
+  .hero-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .stat{
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+    padding:6px 12px;border-radius:20px;font-size:12px;color:#fff;
+  }
+  .stat b{color:var(--oro)}
+
+  /* ───────────── SECTION TITLE ───────────── */
+  section.block{padding:32px 0}
+  .section-title{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:18px;
+    border-bottom:2px solid var(--bordo);padding-bottom:10px;
+  }
+  .section-title h3{
+    font-size:20px;color:var(--blu);font-weight:800;
+    letter-spacing:.3px;text-transform:uppercase;
+  }
+  .section-title small{color:var(--testo-mu);font-size:13px}
+
+  /* ───────────── DAY GROUPS ───────────── */
+  .day{
+    background:var(--carta);
+    border:1px solid var(--bordo);
+    border-radius:8px;
+    overflow:hidden;
+    margin-bottom:24px;
+    box-shadow:0 1px 2px rgba(0,0,0,.03);
+  }
+  .day-header{
+    background:linear-gradient(90deg,var(--blu) 0%,var(--blu-chiaro) 100%);
+    color:#fff;padding:12px 18px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .day-tag{
+    background:var(--oro);color:var(--blu-scuro);
+    font-weight:900;font-size:11px;letter-spacing:1px;
+    padding:3px 8px;border-radius:3px;
+  }
+  .day-header h4{font-size:17px;font-weight:700;letter-spacing:.4px}
+  .day-header .day-meta{margin-left:auto;font-size:12px;opacity:.85}
+
+  /* ───────────── TABELLA CALENDARIO ───────────── */
+  table.calendario{
+    width:100%;border-collapse:collapse;
+    font-size:14px;
+  }
+  table.calendario thead th{
+    background:#f0f3f9;color:var(--testo-mu);
+    text-align:left;padding:10px 12px;
+    font-size:11px;letter-spacing:.8px;text-transform:uppercase;
+    font-weight:700;border-bottom:1px solid var(--bordo);
+  }
+  table.calendario tbody td{
+    padding:11px 12px;border-bottom:1px solid var(--bordo);
+    vertical-align:middle;
+  }
+  table.calendario tbody tr:last-child td{border-bottom:none}
+  table.calendario tbody tr:hover{background:#fafbfd}
+
+  td.ora{font-weight:700;color:var(--blu);white-space:nowrap;width:78px}
+  td.cat{width:64px}
+  td.fase{color:var(--testo-mu);font-size:13px;width:170px}
+  td.squadre{font-weight:600;min-width:280px}
+  td.squadre .vs{color:var(--testo-dim);font-weight:400;margin:0 8px}
+  td.impianto{
+    color:var(--testo-mu);font-size:13px;
+    white-space:nowrap;width:160px;
+  }
+  td.risultato{
+    text-align:right;font-weight:800;
+    color:var(--testo);white-space:nowrap;width:90px;
+  }
+  td.risultato.giocata{color:var(--ok)}
+
+  .pill{
+    display:inline-block;padding:2px 8px;border-radius:11px;
+    font-size:10.5px;font-weight:700;letter-spacing:.5px;
+    text-transform:uppercase;color:#fff;
+  }
+  .pill.u13{background:var(--u13)}
+  .pill.u14{background:var(--u14)}
+  .pill.cer{background:var(--cer)}
+
+  tr.cerimonia td{
+    background:#faf5ff;
+    color:var(--cer);font-style:italic;
+  }
+  tr.finale td{
+    background:linear-gradient(90deg,#fff8e6 0%,#fff 100%);
+  }
+  tr.finale td.fase{color:var(--rosso);font-weight:700;font-style:normal}
+
+  /* ───────────── LEGENDA ───────────── */
+  .legenda{
+    background:var(--carta);border:1px solid var(--bordo);
+    border-radius:8px;padding:14px 18px;
+    display:flex;flex-wrap:wrap;gap:18px;
+    font-size:13px;color:var(--testo-mu);margin-bottom:24px;
+  }
+  .legenda b{color:var(--testo)}
+  .legenda .item{display:flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+  .dot.blu{background:var(--u13)}
+  .dot.rosso{background:var(--u14)}
+  .dot.viola{background:var(--cer)}
+  .dot.oro{background:var(--oro)}
+
+  /* ───────────── FOOTER ───────────── */
+  footer.site{
+    background:var(--blu-scuro);color:#cfd9ee;
+    padding:32px 0 22px;margin-top:40px;
+    border-top:4px solid var(--oro);
+  }
+  footer.site .wrap{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;
+  }
+  footer.site h5{
+    color:#fff;font-size:13px;letter-spacing:.6px;
+    text-transform:uppercase;margin-bottom:10px;
+  }
+  footer.site p,footer.site li{font-size:13px;line-height:1.7}
+  footer.site ul{list-style:none}
+  footer.site a{color:#cfd9ee}
+  .copy{
+    text-align:center;font-size:12px;color:#8295bd;
+    border-top:1px solid rgba(255,255,255,.1);
+    margin-top:22px;padding-top:14px;
+  }
+
+  /* ───────────── RESPONSIVE ───────────── */
+  @media (max-width:780px){
+    nav.main{display:none}
+    .brand h1{font-size:16px}
+    .hero{padding:26px 0 22px}
+    table.calendario thead{display:none}
+    table.calendario,
+    table.calendario tbody,
+    table.calendario tr,
+    table.calendario td{display:block;width:auto}
+    table.calendario tbody tr{
+      padding:10px 14px;border-bottom:1px solid var(--bordo);
+    }
+    table.calendario tbody td{
+      border:none;padding:2px 0;
+    }
+    td.ora{font-size:16px;color:var(--blu);margin-bottom:4px}
+    td.risultato{text-align:left;font-size:16px}
+    td.squadre{font-size:15px;padding:4px 0}
+    td.fase, td.impianto{font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────────── TOP BAR ─────────────── -->
+<div class="topbar">
+  <div class="wrap">
+    <span class="left"><b>10ª edizione</b> · 1–3 Maggio 2026 · Monsummano Terme (PT)</span>
+    <span class="right">
+      <a href="#">📧 info@trofeocittadimonsummanoterme.it</a>
+    </span>
+  </div>
+</div>
+
+<!-- ─────────────── HEADER ─────────────── -->
+<header class="site">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-logo">T</div>
+      <h1>Trofeo Città di Monsummano Terme<small>Trofeo Nazionale di Basket · U13 / U14</small></h1>
+    </div>
+    <nav class="main">
+      <a href="#">Home</a>
+      <a href="#">Squadre</a>
+      <a href="#" class="active">Calendario</a>
+      <a href="#">Classifiche</a>
+      <a href="#">Impianti</a>
+      <a href="#">Contatti</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─────────────── HERO ─────────────── -->
+<div class="hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="#">Home</a> &nbsp;›&nbsp; Calendario &amp; Risultati</div>
+    <h2>Calendario &amp; Risultati</h2>
+    <p>Tutte le 40 partite del torneo, le cerimonie e le finalissime. Aggiornato in tempo reale durante le giornate di gara.</p>
+    <div class="hero-stats">
+      <span class="stat"><b>16</b> squadre</span>
+      <span class="stat"><b>4</b> gironi</span>
+      <span class="stat"><b>40</b> partite</span>
+      <span class="stat"><b>4</b> impianti</span>
+      <span class="stat"><b>3</b> giornate</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────── CALENDARIO ─────────────── -->
+<section class="block">
+  <div class="wrap">
+
+    <div class="section-title">
+      <h3>Programma Gare</h3>
+      <small>1–3 Maggio 2026 · 4 impianti di gioco</small>
+    </div>
+
+    <div class="legenda">
+      <b>Legenda:</b>
+      <span class="item"><span class="dot blu"></span> U13</span>
+      <span class="item"><span class="dot rosso"></span> U14</span>
+      <span class="item"><span class="dot viola"></span> Cerimonia</span>
+      <span class="item"><span class="dot oro"></span> Finalissima</span>
+      <span class="item"><b>A</b> PalaCardelli</span>
+      <span class="item"><b>B</b> Pal. Cintolese</span>
+      <span class="item"><b>C</b> Pal. Liceo Salutati</span>
+      <span class="item"><b>D</b> Geodetica</span>
+    </div>
+
+    <!-- ───── G1 — Venerdì ───── -->
+    <div class="day">
+      <div class="day-header">
+        <span class="day-tag">G1</span>
+        <h4>Venerdì 1 Maggio 2026</h4>
+        <span class="day-meta">9 partite · 4 impianti · cerimonia di apertura</span>
+      </div>
+      <table class="calendario">
+        <thead>
+          <tr>
+            <th>Ora</th><th>Cat.</th><th>Fase</th><th>Partita</th><th>Impianto</th><th style="text-align:right">Risultato</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="ora">10:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone B13</td><td class="squadre">Dany Basket <span class="vs">vs</span> Prato Dragons</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">10:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone A13</td><td class="squadre">Shoemakers <span class="vs">vs</span> Endas Pistoia</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">10:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone A14</td><td class="squadre">Basket Calcinaia <span class="vs">vs</span> Massa e Cozzile</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">10:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone B14</td><td class="squadre">Cestistica Pescia <span class="vs">vs</span> Chiesina Basket</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">12:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone B13</td><td class="squadre">Codigoro Basket <span class="vs">vs</span> Mens Sana Siena</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">12:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone A13</td><td class="squadre">Basket Marsciano <span class="vs">vs</span> TissIttiri</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">12:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone A14</td><td class="squadre">Basket Loano <span class="vs">vs</span> Shoemakers</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">12:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone B14</td><td class="squadre">La T Gema <span class="vs">vs</span> San Fr. Ittiri</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr class="cerimonia"><td class="ora">15:00</td><td class="cat"><span class="pill cer">CER</span></td><td class="fase">Cerimonia di apertura</td><td class="squadre">Presentazione squadre, autorità, inno</td><td class="impianto">A · PalaCardelli</td><td class="risultato">—</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone A13</td><td class="squadre">Basket Marsciano <span class="vs">vs</span> Shoemakers</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone B13</td><td class="squadre">Mens Sana Siena <span class="vs">vs</span> Prato Dragons</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone A14</td><td class="squadre">Basket Calcinaia <span class="vs">vs</span> Shoemakers</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone B14</td><td class="squadre">Chiesina Basket <span class="vs">vs</span> La T Gema</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">18:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone B14</td><td class="squadre">Cestistica Pescia <span class="vs">vs</span> San Fr. Ittiri</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">18:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone A13</td><td class="squadre">Endas Pistoia <span class="vs">vs</span> TissIttiri</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">18:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone B13</td><td class="squadre">Codigoro Basket <span class="vs">vs</span> Dany Basket</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">18:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone A14</td><td class="squadre">Basket Loano <span class="vs">vs</span> Massa e Cozzile</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ───── G2 — Sabato ───── -->
+    <div class="day">
+      <div class="day-header">
+        <span class="day-tag">G2</span>
+        <h4>Sabato 2 Maggio 2026</h4>
+        <span class="day-meta">16 partite · 4 impianti · semifinali Oro/Bronzo</span>
+      </div>
+      <table class="calendario">
+        <thead>
+          <tr><th>Ora</th><th>Cat.</th><th>Fase</th><th>Partita</th><th>Impianto</th><th style="text-align:right">Risultato</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="ora">09:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone B13</td><td class="squadre">Codigoro Basket <span class="vs">vs</span> Prato Dragons</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">09:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone A13</td><td class="squadre">Basket Marsciano <span class="vs">vs</span> Endas Pistoia</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">09:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone A14</td><td class="squadre">Massa e Cozzile <span class="vs">vs</span> Shoemakers</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">09:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone B14</td><td class="squadre">Cestistica Pescia <span class="vs">vs</span> La T Gema</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">11:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone A14</td><td class="squadre">Basket Calcinaia <span class="vs">vs</span> Basket Loano</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">11:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone B13</td><td class="squadre">Dany Basket <span class="vs">vs</span> Mens Sana Siena</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">11:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Girone A13</td><td class="squadre">Shoemakers <span class="vs">vs</span> TissIttiri</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">11:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Girone B14</td><td class="squadre">Chiesina Basket <span class="vs">vs</span> San Fr. Ittiri</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">14:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Semifinale Oro U13</td><td class="squadre">1°A13 <span class="vs">vs</span> 2°B13</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">14:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Semifinale Oro U14</td><td class="squadre">1°A14 <span class="vs">vs</span> 2°B14</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">14:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Semifinale Bronzo U13</td><td class="squadre">3°A13 <span class="vs">vs</span> 4°B13</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">14:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Semifinale Bronzo U14</td><td class="squadre">3°A14 <span class="vs">vs</span> 4°B14</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Semifinale Oro U13</td><td class="squadre">1°B13 <span class="vs">vs</span> 2°A13</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Semifinale Oro U14</td><td class="squadre">1°B14 <span class="vs">vs</span> 2°A14</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Semifinale Bronzo U13</td><td class="squadre">3°B13 <span class="vs">vs</span> 4°A13</td><td class="impianto">C · Salutati</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">16:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Semifinale Bronzo U14</td><td class="squadre">3°B14 <span class="vs">vs</span> 4°A14</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ───── G3 — Domenica ───── -->
+    <div class="day">
+      <div class="day-header">
+        <span class="day-tag">G3</span>
+        <h4>Domenica 3 Maggio 2026</h4>
+        <span class="day-meta">8 partite · finalissime al PalaCardelli · cerimonia di chiusura</span>
+      </div>
+      <table class="calendario">
+        <thead>
+          <tr><th>Ora</th><th>Cat.</th><th>Fase</th><th>Partita</th><th>Impianto</th><th style="text-align:right">Risultato</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="ora">09:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Finale 3°/4° U13</td><td class="squadre">Perd. SF-Oro 1 <span class="vs">vs</span> Perd. SF-Oro 2</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">09:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Finale 7°/8° U13</td><td class="squadre">Perd. SF-Bronzo 1 <span class="vs">vs</span> Perd. SF-Bronzo 2</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">09:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">Finale 5°/6° U13</td><td class="squadre">Vinc. SF-Bronzo 1 <span class="vs">vs</span> Vinc. SF-Bronzo 2</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">11:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Finale 3°/4° U14</td><td class="squadre">Perd. SF-Oro 1 <span class="vs">vs</span> Perd. SF-Oro 2</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">11:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Finale 7°/8° U14</td><td class="squadre">Perd. SF-Bronzo 1 <span class="vs">vs</span> Perd. SF-Bronzo 2</td><td class="impianto">B · Cintolese</td><td class="risultato">— : —</td></tr>
+          <tr><td class="ora">11:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">Finale 5°/6° U14</td><td class="squadre">Vinc. SF-Bronzo 1 <span class="vs">vs</span> Vinc. SF-Bronzo 2</td><td class="impianto">D · Geodetica</td><td class="risultato">— : —</td></tr>
+          <tr class="finale"><td class="ora">13:00</td><td class="cat"><span class="pill u13">U13</span></td><td class="fase">🏆 Finalissima 1°/2° U13</td><td class="squadre">Vinc. SF-Oro 1 <span class="vs">vs</span> Vinc. SF-Oro 2</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr class="finale"><td class="ora">15:00</td><td class="cat"><span class="pill u14">U14</span></td><td class="fase">🏆 Finalissima 1°/2° U14</td><td class="squadre">Vinc. SF-Oro 1 <span class="vs">vs</span> Vinc. SF-Oro 2</td><td class="impianto">A · PalaCardelli</td><td class="risultato">— : —</td></tr>
+          <tr class="cerimonia"><td class="ora">17:00</td><td class="cat"><span class="pill cer">CER</span></td><td class="fase">Cerimonia di chiusura</td><td class="squadre">🏆 Premiazioni di tutte le categorie</td><td class="impianto">A · PalaCardelli</td><td class="risultato">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────── FOOTER ─────────────── -->
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <h5>Trofeo Città di Monsummano Terme</h5>
+      <p>Trofeo Nazionale di Basket riservato alle categorie Under 13 e Under 14. Edizione 2026: 1–3 Maggio, Monsummano Terme (PT).</p>
+    </div>
+    <div>
+      <h5>Organizzazione</h5>
+      <p>ASD Shoemakers Basket Monsummano</p>
+      <p>Piazza Sandro Pertini · Monsummano Terme</p>
+    </div>
+    <div>
+      <h5>Link utili</h5>
+      <ul>
+        <li><a href="#">Squadre partecipanti</a></li>
+        <li><a href="#">Impianti di gioco</a></li>
+        <li><a href="#">Classifiche gironi</a></li>
+        <li><a href="torneo_programma.xlsx">📥 Programma Excel</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">© 2026 Trofeo Città di Monsummano Terme · Sito a cura di ASD Shoemakers Basket Monsummano</div>
+</footer>
+
+</body>
+</html>
