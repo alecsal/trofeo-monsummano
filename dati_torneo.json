@@ -52,6 +52,14 @@
       "indirizzo": "Piazza Sandro Pertini · Monsummano Terme",
       "descrizione": "Punto di ristoro ufficiale per i pranzi. Stessa piazza del PalaCardelli.",
       "maps_url": "https://www.google.com/maps/place/Piazza+S.+Pertini,+51015+Monsummano+Terme+PT/@43.8624142,10.8154634,17z"
+    },
+    {
+      "sigla": "☕",
+      "nome": "Caffè Micky",
+      "tipo": "pool",
+      "indirizzo": "Cintolese · Monsummano Terme",
+      "descrizione": "Punto di ristoro ufficiale per i pranzi delle squadre che giocano alla Pal. Cintolese.",
+      "maps_url": "https://www.google.com/maps/search/?api=1&query=Caff%C3%A8+Micky+Cintolese+Monsummano"
     }
   ],
   "squadre": {

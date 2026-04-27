@@ -457,8 +457,8 @@ def genera_html(dati, loghi, output_path='index.html'):
 
 <section class="section" id="sec-impianti">
 <div class="info-box">
-<h3>🏟 Impianti e punto di ristoro</h3>
-<p><strong>PalaCardelli</strong>, <strong>Geodetica</strong> e <strong>Pool Bar</strong> sono tutti in <strong>Piazza Sandro Pertini</strong> a Monsummano Terme — stessa posizione, massima comodità.</p>
+<h3>🏟 Impianti e punti di ristoro</h3>
+<p><strong>PalaCardelli</strong>, <strong>Geodetica</strong> e <strong>Pool Bar</strong> sono tutti in <strong>Piazza Sandro Pertini</strong> a Monsummano Terme. Per le squadre che giocano alla <strong>Pal. Cintolese</strong> il punto di ristoro è il <strong>Caffè Micky</strong> a Cintolese.</p>
 </div>
 <div class="impianti-grid">
 {imp_cards}
