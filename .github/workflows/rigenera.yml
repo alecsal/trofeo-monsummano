@@ -3,7 +3,7 @@ name: Rigenera HTML ed Excel
 # Si attiva quando il file dati_torneo.json viene modificato
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - 'dati_torneo.json'
       - 'genera.py'
