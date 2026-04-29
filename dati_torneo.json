@@ -796,7 +796,7 @@
         "giorno": "G1",
         "ora": "10:00",
         "colore": "verde",
-        "testo": "🍽 Mensa 13:00"
+        "testo": "🍽 Mensa 12:30"
       },
       {
         "giorno": "G1",
@@ -808,25 +808,19 @@
         "giorno": "G2",
         "ora": "09:00",
         "colore": "verde",
-        "testo": "🍽 Mensa 12:00"
+        "testo": "🍽 Mensa 12:30"
       },
       {
         "giorno": "G2",
         "ora": "11:00",
         "colore": "arancio",
-        "testo": "🍽 Mensa 13:00"
+        "testo": "🍽 Mensa 13:30"
       },
       {
         "giorno": "G3",
         "ora": "09:00",
         "colore": "verde",
-        "testo": "🍽 Mensa 12:00"
-      },
-      {
-        "giorno": "G3",
-        "ora": "11:00",
-        "colore": "arancio",
-        "testo": "🍽 Mensa 13:00"
+        "testo": "🍽 Mensa 14:00"
       },
       {
         "giorno": "G3",
@@ -847,66 +841,92 @@
         "titolo": "GIORNO 1 — Venerdì 1 Maggio",
         "turni": [
           {
-            "orario": "13:00",
+            "orario": "12:30",
+            "locale": "Caffè Micky",
             "colore": "verde",
-            "etichetta": "🟢 Turno 13:00",
-            "sottotitolo": "auto",
-            "fonte_partite": [
+            "etichetta": "☕ Caffè Micky · 12:30",
+            "sottotitolo": "24 coperti",
+            "voci": [
               {
-                "giorno": "G1",
-                "ora": "10:00"
+                "categoria": "U13",
+                "nome": "Endas Pistoia",
+                "pax": 24,
+                "allergie": ""
               }
-            ],
-            "pranzo": [
+            ]
+          },
+          {
+            "orario": "12:30",
+            "locale": "Pool Bar",
+            "colore": "arancio",
+            "etichetta": "🍽 Pool Bar · 12:30",
+            "sottotitolo": "25 coperti · ⚠ allergie",
+            "voci": [
               {
-                "squadra": "Endas Pistoia",
-                "locale": "Caffè Micky"
+                "categoria": "U14",
+                "nome": "Chiesina Basket",
+                "pax": 15,
+                "allergie": "⚠ 1 celiaco · 1 intollerante lattosio"
               },
               {
-                "squadra": "Chiesina Basket",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Dany Basket",
-                "locale": "Pool Bar"
+                "categoria": "U13",
+                "nome": "Dany Basket",
+                "pax": 10,
+                "allergie": ""
               }
             ]
           },
           {
             "orario": "14:00",
-            "colore": "arancio",
-            "etichetta": "🟠 Turno 14:00",
-            "sottotitolo": "✈ fuori regione",
-            "fonte_partite": [
+            "locale": "Caffè Micky",
+            "colore": "verde",
+            "etichetta": "☕ Caffè Micky · 14:00",
+            "sottotitolo": "76 coperti · ⚠ allergie",
+            "voci": [
               {
-                "giorno": "G1",
-                "ora": "12:00"
+                "categoria": "U13",
+                "nome": "Mens Sana Siena",
+                "pax": 36,
+                "allergie": "⚠ 1 celiaco"
+              },
+              {
+                "categoria": "U13",
+                "nome": "TissIttiri",
+                "pax": 24,
+                "allergie": "⚠ allergia peperoncino · intolleranza lattosio · allergia tonno"
+              },
+              {
+                "categoria": "U13",
+                "nome": "Basket Marsciano",
+                "pax": 16,
+                "allergie": ""
               }
-            ],
-            "pranzo": [
+            ]
+          },
+          {
+            "orario": "14:00",
+            "locale": "Pool Bar",
+            "colore": "arancio",
+            "etichetta": "🍽 Pool Bar · 14:00",
+            "sottotitolo": "65 coperti · ⚠ allergie",
+            "voci": [
               {
-                "squadra": "Basket Marsciano",
-                "locale": "Caffè Micky"
+                "categoria": "U13",
+                "nome": "Codigoro Basket",
+                "pax": 35,
+                "allergie": ""
               },
               {
-                "squadra": "Mens Sana Siena",
-                "locale": "Caffè Micky"
+                "categoria": "U14",
+                "nome": "Basket Loano",
+                "pax": 18,
+                "allergie": "⚠ 1 celiaco"
               },
               {
-                "squadra": "TissIttiri",
-                "locale": "Caffè Micky"
-              },
-              {
-                "squadra": "Basket Loano",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Codigoro Basket",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "San Fr. Ittiri",
-                "locale": "Pool Bar"
+                "categoria": "U14",
+                "nome": "San Fr. Ittiri",
+                "pax": 12,
+                "allergie": ""
               }
             ]
           }
@@ -917,58 +937,80 @@
         "titolo": "GIORNO 2 — Sabato 2 Maggio",
         "turni": [
           {
-            "orario": "12:00",
+            "orario": "12:30",
+            "locale": "Caffè Micky",
             "colore": "verde",
-            "etichetta": "🟢 Turno 12:00",
-            "sottotitolo": "auto",
-            "fonte_partite": [
+            "etichetta": "☕ Caffè Micky · 12:30",
+            "sottotitolo": "16 coperti",
+            "voci": [
               {
-                "giorno": "G2",
-                "ora": "09:00"
-              }
-            ],
-            "pranzo": [
-              {
-                "squadra": "Basket Marsciano",
-                "locale": "Caffè Micky"
-              },
-              {
-                "squadra": "Codigoro Basket",
-                "locale": "Pool Bar"
+                "categoria": "U13",
+                "nome": "Basket Marsciano",
+                "pax": 16,
+                "allergie": ""
               }
             ]
           },
           {
-            "orario": "13:00",
+            "orario": "12:30",
+            "locale": "Pool Bar",
             "colore": "arancio",
-            "etichetta": "🟠 Turno 13:00",
-            "sottotitolo": "auto",
-            "fonte_partite": [
+            "etichetta": "🍽 Pool Bar · 12:30",
+            "sottotitolo": "24 coperti · ⚠ allergie",
+            "voci": [
               {
-                "giorno": "G2",
-                "ora": "11:00"
+                "categoria": "U13",
+                "nome": "TissIttiri",
+                "pax": 24,
+                "allergie": "⚠ allergia peperoncino · intolleranza lattosio · allergia tonno"
               }
-            ],
-            "pranzo": [
+            ]
+          },
+          {
+            "orario": "13:30",
+            "locale": "Caffè Micky",
+            "colore": "verde",
+            "etichetta": "☕ Caffè Micky · 13:30",
+            "sottotitolo": "4 coperti · ⚠ allergie",
+            "voci": [
               {
-                "squadra": "Mens Sana Siena",
-                "locale": "Caffè Micky"
+                "categoria": "U13",
+                "nome": "Mens Sana Siena",
+                "pax": 4,
+                "allergie": "⚠ 1 celiaco"
+              }
+            ]
+          },
+          {
+            "orario": "13:30",
+            "locale": "Pool Bar",
+            "colore": "arancio",
+            "etichetta": "🍽 Pool Bar · 13:30",
+            "sottotitolo": "80 coperti · ⚠ allergie",
+            "voci": [
+              {
+                "categoria": "U13",
+                "nome": "Codigoro Basket",
+                "pax": 35,
+                "allergie": ""
               },
               {
-                "squadra": "Basket Loano",
-                "locale": "Pool Bar"
+                "categoria": "U14",
+                "nome": "Basket Loano",
+                "pax": 18,
+                "allergie": "⚠ 1 celiaco"
               },
               {
-                "squadra": "Chiesina Basket",
-                "locale": "Pool Bar"
+                "categoria": "U14",
+                "nome": "Chiesina Basket",
+                "pax": 15,
+                "allergie": "⚠ 1 celiaco · 1 intollerante lattosio"
               },
               {
-                "squadra": "San Fr. Ittiri",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "TissIttiri",
-                "locale": "Pool Bar"
+                "categoria": "U14",
+                "nome": "San Fr. Ittiri",
+                "pax": 12,
+                "allergie": ""
               }
             ]
           }
@@ -979,118 +1021,47 @@
         "titolo": "GIORNO 3 — Domenica 3 Maggio",
         "turni": [
           {
-            "orario": "12:00",
-            "colore": "verde",
-            "etichetta": "🟢 Turno 12:00",
-            "sottotitolo": "finali mattutine U13",
-            "voci": [
-              {
-                "categoria": "U13",
-                "nome": "Finale 3°/4°",
-                "provenienza": "Pala 09:00"
-              },
-              {
-                "categoria": "U13",
-                "nome": "Finale 5°/6°",
-                "provenienza": "Geodetica 09:00"
-              },
-              {
-                "categoria": "U13",
-                "nome": "Finale 7°/8°",
-                "provenienza": "Cintolese 09:00"
-              }
-            ],
-            "pranzo": [
-              {
-                "squadra": "Perd.SF-Bronzo1",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Perd.SF-Bronzo2",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Perd.SF-Oro1",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Perd.SF-Oro2",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Vinc.SF-Bronzo1",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Vinc.SF-Bronzo2",
-                "locale": "Pool Bar"
-              }
-            ]
-          },
-          {
-            "orario": "13:00",
+            "orario": "14:00",
+            "locale": "Pool Bar",
             "colore": "arancio",
-            "etichetta": "🟠 Turno 13:00",
-            "sottotitolo": "prima delle finalissime",
+            "etichetta": "🍽 Pool Bar · 14:00",
+            "sottotitolo": "120 coperti · ⚠ allergie",
             "voci": [
               {
-                "categoria": "U14",
-                "nome": "Finale 3°/4°",
-                "provenienza": "Pala 11:00"
-              },
-              {
-                "categoria": "U14",
-                "nome": "Finale 5°/6°",
-                "provenienza": "Geodetica 11:00"
-              },
-              {
-                "categoria": "U14",
-                "nome": "Finale 7°/8°",
-                "provenienza": "Cintolese 11:00"
+                "categoria": "U13",
+                "nome": "Codigoro Basket",
+                "pax": 35,
+                "allergie": ""
               },
               {
                 "categoria": "U13",
-                "nome": "🏆 Finaliste U13",
-                "provenienza": "(prima della finale)"
-              }
-            ],
-            "pranzo": [
-              {
-                "squadra": "Perd.SF-Bronzo1",
-                "locale": "Pool Bar"
+                "nome": "TissIttiri",
+                "pax": 24,
+                "allergie": "⚠ allergia peperoncino · intolleranza lattosio · allergia tonno"
               },
-              {
-                "squadra": "Perd.SF-Bronzo2",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Perd.SF-Oro1",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Perd.SF-Oro2",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Vinc.SF-Bronzo1",
-                "locale": "Pool Bar"
-              },
-              {
-                "squadra": "Vinc.SF-Bronzo2",
-                "locale": "Pool Bar"
-              }
-            ]
-          },
-          {
-            "orario": "14:30",
-            "colore": "gold",
-            "etichetta": "🟡 Turno 14:30",
-            "sottotitolo": "finaliste U14",
-            "voci": [
               {
                 "categoria": "U14",
-                "nome": "🏆 Finaliste U14",
-                "provenienza": "(prima della finale 15:00)"
+                "nome": "Basket Loano",
+                "pax": 18,
+                "allergie": "⚠ 1 celiaco"
+              },
+              {
+                "categoria": "U13",
+                "nome": "Basket Marsciano",
+                "pax": 16,
+                "allergie": ""
+              },
+              {
+                "categoria": "U14",
+                "nome": "Chiesina Basket",
+                "pax": 15,
+                "allergie": "⚠ 1 celiaco · 1 intollerante lattosio"
+              },
+              {
+                "categoria": "U14",
+                "nome": "San Fr. Ittiri",
+                "pax": 12,
+                "allergie": ""
               }
             ]
           }

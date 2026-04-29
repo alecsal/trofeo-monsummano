@@ -300,7 +300,6 @@ def genera_html(dati, loghi, output_path='index.html'):
     imp_label_short = {'A': '🏟 PalaCardelli', 'B': 'Cintolese', 'C': 'Salutati', 'D': 'Geodetica'}
 
     def turno_items(turno):
-        """Restituisce [(cat, nome, provenienza, logo_html), ...] per un turno mensa."""
         items = []
         if 'fonte_partite' in turno:
             for fp in turno['fonte_partite']:
@@ -308,19 +307,20 @@ def genera_html(dati, loghi, output_path='index.html'):
                                 if p['giorno'] == fp['giorno'] and p['ora'] == fp['ora']
                                 and not p.get('placeholder')]
                 for p in partite_slot:
-                    da = f"{imp_label_short.get(p['impianto'], p['impianto'])} {fp['ora']}"
-                    items.append((p['categoria'], p['squadra1'], da, get_logo(p['squadra1'], dati, loghi)))
-                    items.append((p['categoria'], p['squadra2'], da, get_logo(p['squadra2'], dati, loghi)))
+                    items.append({'cat': p['categoria'], 'nome': p['squadra1'], 'pax': '', 'allergie': '', 'logo': get_logo(p['squadra1'], dati, loghi)})
+                    items.append({'cat': p['categoria'], 'nome': p['squadra2'], 'pax': '', 'allergie': '', 'logo': get_logo(p['squadra2'], dati, loghi)})
         for v in turno.get('voci', []):
-            items.append((v['categoria'], v['nome'], v['provenienza'], ''))
+            items.append({'cat': v['categoria'], 'nome': v['nome'], 'pax': v.get('pax', ''), 'allergie': v.get('allergie', ''), 'logo': get_logo(v['nome'], dati, loghi)})
         return items
 
     def turno_list_html(items):
         h = ''
-        for cat, sq, da, logo in items:
-            cat_cls = 'cu13' if cat == 'U13' else 'cu14'
-            img = f'<img src="{logo}">' if logo else ''
-            h += f'<li>{img}<span class="tl-cat {cat_cls}">{cat}</span><span class="tl-name">{sq}</span><span class="tl-from">{da}</span></li>\n'
+        for it in items:
+            cat_cls = 'cu13' if it['cat'] == 'U13' else 'cu14'
+            img = f'<img src="{it["logo"]}">' if it['logo'] else ''
+            pax_html = f'<span class="tl-pax">{it["pax"]} pax</span>' if it['pax'] else ''
+            all_html = f'<span class="tl-allergie">{it["allergie"]}</span>' if it['allergie'] else ''
+            h += f'<li>{img}<span class="tl-cat {cat_cls}">{it["cat"]}</span><span class="tl-name">{it["nome"]}</span>{pax_html}{all_html}</li>\n'
         return h
 
     info = mensa_cfg.get('info_box')
@@ -625,7 +625,8 @@ h1 span{color:var(--gold)}
 .turno-list img{width:26px;height:26px;flex-shrink:0;background:#fff;border:1px solid var(--sf3);border-radius:3px;padding:2px;object-fit:contain}
 .turno-list .tl-cat{font-size:9px;font-weight:900;padding:1px 5px;border-radius:3px;color:#fff}
 .turno-list .tl-name{flex:1;font-weight:600}
-.turno-list .tl-from{font-size:10px;color:var(--mu)}
+.turno-list .tl-pax{font-size:10px;color:var(--mu);white-space:nowrap}
+.turno-list .tl-allergie{font-size:9px;color:#b45309;font-weight:700;padding:1px 6px;border-radius:3px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);white-space:nowrap}
 .impianti-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
 .imp-card{background:var(--sf);border-radius:10px;padding:14px;border:1px solid var(--sf3);box-shadow:var(--shadow)}
 .imp-card.palazzetto{background:linear-gradient(135deg,rgba(200,16,46,.06) 0%,var(--sf) 50%);border-color:rgba(200,16,46,.30)}
@@ -999,7 +1000,7 @@ def genera_excel(dati, loghi, output_path='torneo_programma.xlsx'):
             ws6.row_dimensions[next_row].height = 22
             next_row += 1
 
-        for col, h in enumerate(['Turno', 'Cat.', 'Squadra / Voce', 'Provenienza', 'Note'], 1):
+        for col, h in enumerate(['Turno', 'Cat.', 'Squadra', 'PAX', 'Allergie & intolleranze'], 1):
             c = ws6.cell(row=next_row, column=col, value=h)
             c.font = F_HDR
             c.fill = FILL_HDR
@@ -1030,11 +1031,10 @@ def genera_excel(dati, loghi, output_path='torneo_programma.xlsx'):
                                     if p['giorno'] == fp['giorno'] and p['ora'] == fp['ora']
                                     and not p.get('placeholder')]
                     for p in partite_slot:
-                        da = f"{imp_label_short.get(p['impianto'], p['impianto'])} {fp['ora']}"
-                        voci.append((p['categoria'], p['squadra1'], da))
-                        voci.append((p['categoria'], p['squadra2'], da))
+                        voci.append((p['categoria'], p['squadra1'], '', ''))
+                        voci.append((p['categoria'], p['squadra2'], '', ''))
                 for v in t.get('voci', []):
-                    voci.append((v['categoria'], v['nome'], v['provenienza']))
+                    voci.append((v['categoria'], v['nome'], v.get('pax', ''), v.get('allergie', '')))
 
                 sub = t.get('sottotitolo', '')
                 if sub == 'auto':
@@ -1052,16 +1052,20 @@ def genera_excel(dati, loghi, output_path='torneo_programma.xlsx'):
                 row += 1
 
                 # Voci del turno
-                for cat, sq, da in voci:
-                    vals = ['', cat, sq, da, '']
+                FILL_ALLERGIE = PatternFill('solid', fgColor='FEF3C7')
+                for cat, sq, pax, allergie in voci:
+                    vals = ['', cat, sq, f'{pax} pax' if pax else '', allergie]
                     for col, v in enumerate(vals, 1):
                         c = ws6.cell(row=row, column=col, value=v)
                         c.font = F_BODY
-                        c.alignment = CENTER if col in (1, 2) else LEFT
+                        c.alignment = CENTER if col in (1, 2, 4) else LEFT
                         c.border = BORDER
                         if col == 2:
                             c.fill = FILL_U13 if cat == 'U13' else FILL_U14
                             c.font = F_BOLD
+                        elif col == 5 and allergie:
+                            c.fill = FILL_ALLERGIE
+                            c.font = Font(name='Calibri', size=10, bold=True, color='B45309')
                     row += 1
             row += 1  # spazio tra giorni
 
