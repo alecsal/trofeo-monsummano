@@ -222,13 +222,13 @@
       },
       {
         "slot": "F4",
-        "nome_breve": "Cestistica Pescia",
-        "nome_esteso": "Cestistica Audace Pescia",
-        "citta": "Pescia",
-        "prov": "PT",
+        "nome_breve": "Fucecchio",
+        "nome_esteso": "Basket Fucecchio",
+        "citta": "Fucecchio",
+        "prov": "FI",
         "regione": "Toscana",
         "fuori_regione": false,
-        "logo_key": "Cestistica_Pescia"
+        "logo_key": "Fucecchio"
       }
     ]
   },
@@ -298,7 +298,7 @@
       "ora": "10:00",
       "impianto": "D",
       "categoria": "U14",
-      "squadra1": "Cestistica Pescia",
+      "squadra1": "Fucecchio",
       "squadra2": "Chiesina Basket",
       "fase": "Girone B14",
       "punti1": 0,
@@ -415,7 +415,7 @@
       "ora": "18:00",
       "impianto": "A",
       "categoria": "U14",
-      "squadra1": "Cestistica Pescia",
+      "squadra1": "Fucecchio",
       "squadra2": "San Fr. Ittiri",
       "fase": "Girone B14",
       "punti1": 0,
@@ -506,7 +506,7 @@
       "ora": "09:00",
       "impianto": "D",
       "categoria": "U14",
-      "squadra1": "Cestistica Pescia",
+      "squadra1": "Fucecchio",
       "squadra2": "La T Gema",
       "fase": "Girone B14",
       "punti1": 0,
