@@ -791,10 +791,6 @@
     }
   ],
   "mensa": {
-    "info_box": {
-      "titolo": "⚠️ Schema in revisione (4 turni × 45 min)",
-      "testo": "Questa pagina mostra lo schema <strong>a 2 turni</strong> attuale. È in corso la pianificazione del passaggio a <strong>4 turni da 45 minuti</strong>."
-    },
     "slot_badges": [
       {
         "giorno": "G1",
