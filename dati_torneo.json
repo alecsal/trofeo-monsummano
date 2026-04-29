@@ -796,14 +796,54 @@
       "testo": "Questa pagina mostra lo schema <strong>a 2 turni</strong> attuale. È in corso la pianificazione del passaggio a <strong>4 turni da 45 minuti</strong>."
     },
     "slot_badges": [
-      { "giorno": "G1", "ora": "10:00", "colore": "verde",   "testo": "🍽 Mensa 13:00" },
-      { "giorno": "G1", "ora": "12:00", "colore": "arancio", "testo": "✈️ Fuori regione · Mensa 14:00" },
-      { "giorno": "G2", "ora": "09:00", "colore": "verde",   "testo": "🍽 Mensa 12:00" },
-      { "giorno": "G2", "ora": "11:00", "colore": "arancio", "testo": "🍽 Mensa 13:00" },
-      { "giorno": "G3", "ora": "09:00", "colore": "verde",   "testo": "🍽 Mensa 12:00" },
-      { "giorno": "G3", "ora": "11:00", "colore": "arancio", "testo": "🍽 Mensa 13:00" },
-      { "giorno": "G3", "ora": "13:00", "colore": "gold",    "testo": "🏆 Finalissima U13" },
-      { "giorno": "G3", "ora": "15:00", "colore": "gold",    "testo": "🏆 Finalissima U14" }
+      {
+        "giorno": "G1",
+        "ora": "10:00",
+        "colore": "verde",
+        "testo": "🍽 Mensa 13:00"
+      },
+      {
+        "giorno": "G1",
+        "ora": "12:00",
+        "colore": "arancio",
+        "testo": "✈️ Fuori regione · Mensa 14:00"
+      },
+      {
+        "giorno": "G2",
+        "ora": "09:00",
+        "colore": "verde",
+        "testo": "🍽 Mensa 12:00"
+      },
+      {
+        "giorno": "G2",
+        "ora": "11:00",
+        "colore": "arancio",
+        "testo": "🍽 Mensa 13:00"
+      },
+      {
+        "giorno": "G3",
+        "ora": "09:00",
+        "colore": "verde",
+        "testo": "🍽 Mensa 12:00"
+      },
+      {
+        "giorno": "G3",
+        "ora": "11:00",
+        "colore": "arancio",
+        "testo": "🍽 Mensa 13:00"
+      },
+      {
+        "giorno": "G3",
+        "ora": "13:00",
+        "colore": "gold",
+        "testo": "🏆 Finalissima U13"
+      },
+      {
+        "giorno": "G3",
+        "ora": "15:00",
+        "colore": "gold",
+        "testo": "🏆 Finalissima U14"
+      }
     ],
     "giorni": [
       {
@@ -815,14 +855,64 @@
             "colore": "verde",
             "etichetta": "🟢 Turno 13:00",
             "sottotitolo": "auto",
-            "fonte_partite": [{ "giorno": "G1", "ora": "10:00" }]
+            "fonte_partite": [
+              {
+                "giorno": "G1",
+                "ora": "10:00"
+              }
+            ],
+            "pranzo": [
+              {
+                "squadra": "Endas Pistoia",
+                "locale": "Caffè Micky"
+              },
+              {
+                "squadra": "Chiesina Basket",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Dany Basket",
+                "locale": "Pool Bar"
+              }
+            ]
           },
           {
             "orario": "14:00",
             "colore": "arancio",
             "etichetta": "🟠 Turno 14:00",
             "sottotitolo": "✈ fuori regione",
-            "fonte_partite": [{ "giorno": "G1", "ora": "12:00" }]
+            "fonte_partite": [
+              {
+                "giorno": "G1",
+                "ora": "12:00"
+              }
+            ],
+            "pranzo": [
+              {
+                "squadra": "Basket Marsciano",
+                "locale": "Caffè Micky"
+              },
+              {
+                "squadra": "Mens Sana Siena",
+                "locale": "Caffè Micky"
+              },
+              {
+                "squadra": "TissIttiri",
+                "locale": "Caffè Micky"
+              },
+              {
+                "squadra": "Basket Loano",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Codigoro Basket",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "San Fr. Ittiri",
+                "locale": "Pool Bar"
+              }
+            ]
           }
         ]
       },
@@ -835,14 +925,56 @@
             "colore": "verde",
             "etichetta": "🟢 Turno 12:00",
             "sottotitolo": "auto",
-            "fonte_partite": [{ "giorno": "G2", "ora": "09:00" }]
+            "fonte_partite": [
+              {
+                "giorno": "G2",
+                "ora": "09:00"
+              }
+            ],
+            "pranzo": [
+              {
+                "squadra": "Basket Marsciano",
+                "locale": "Caffè Micky"
+              },
+              {
+                "squadra": "Codigoro Basket",
+                "locale": "Pool Bar"
+              }
+            ]
           },
           {
             "orario": "13:00",
             "colore": "arancio",
             "etichetta": "🟠 Turno 13:00",
             "sottotitolo": "auto",
-            "fonte_partite": [{ "giorno": "G2", "ora": "11:00" }]
+            "fonte_partite": [
+              {
+                "giorno": "G2",
+                "ora": "11:00"
+              }
+            ],
+            "pranzo": [
+              {
+                "squadra": "Mens Sana Siena",
+                "locale": "Caffè Micky"
+              },
+              {
+                "squadra": "Basket Loano",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Chiesina Basket",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "San Fr. Ittiri",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "TissIttiri",
+                "locale": "Pool Bar"
+              }
+            ]
           }
         ]
       },
@@ -856,9 +988,47 @@
             "etichetta": "🟢 Turno 12:00",
             "sottotitolo": "finali mattutine U13",
             "voci": [
-              { "categoria": "U13", "nome": "Finale 3°/4°", "provenienza": "Pala 09:00" },
-              { "categoria": "U13", "nome": "Finale 5°/6°", "provenienza": "Geodetica 09:00" },
-              { "categoria": "U13", "nome": "Finale 7°/8°", "provenienza": "Cintolese 09:00" }
+              {
+                "categoria": "U13",
+                "nome": "Finale 3°/4°",
+                "provenienza": "Pala 09:00"
+              },
+              {
+                "categoria": "U13",
+                "nome": "Finale 5°/6°",
+                "provenienza": "Geodetica 09:00"
+              },
+              {
+                "categoria": "U13",
+                "nome": "Finale 7°/8°",
+                "provenienza": "Cintolese 09:00"
+              }
+            ],
+            "pranzo": [
+              {
+                "squadra": "Perd.SF-Bronzo1",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Perd.SF-Bronzo2",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Perd.SF-Oro1",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Perd.SF-Oro2",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Vinc.SF-Bronzo1",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Vinc.SF-Bronzo2",
+                "locale": "Pool Bar"
+              }
             ]
           },
           {
@@ -867,10 +1037,52 @@
             "etichetta": "🟠 Turno 13:00",
             "sottotitolo": "prima delle finalissime",
             "voci": [
-              { "categoria": "U14", "nome": "Finale 3°/4°", "provenienza": "Pala 11:00" },
-              { "categoria": "U14", "nome": "Finale 5°/6°", "provenienza": "Geodetica 11:00" },
-              { "categoria": "U14", "nome": "Finale 7°/8°", "provenienza": "Cintolese 11:00" },
-              { "categoria": "U13", "nome": "🏆 Finaliste U13", "provenienza": "(prima della finale)" }
+              {
+                "categoria": "U14",
+                "nome": "Finale 3°/4°",
+                "provenienza": "Pala 11:00"
+              },
+              {
+                "categoria": "U14",
+                "nome": "Finale 5°/6°",
+                "provenienza": "Geodetica 11:00"
+              },
+              {
+                "categoria": "U14",
+                "nome": "Finale 7°/8°",
+                "provenienza": "Cintolese 11:00"
+              },
+              {
+                "categoria": "U13",
+                "nome": "🏆 Finaliste U13",
+                "provenienza": "(prima della finale)"
+              }
+            ],
+            "pranzo": [
+              {
+                "squadra": "Perd.SF-Bronzo1",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Perd.SF-Bronzo2",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Perd.SF-Oro1",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Perd.SF-Oro2",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Vinc.SF-Bronzo1",
+                "locale": "Pool Bar"
+              },
+              {
+                "squadra": "Vinc.SF-Bronzo2",
+                "locale": "Pool Bar"
+              }
             ]
           },
           {
@@ -879,7 +1091,11 @@
             "etichetta": "🟡 Turno 14:30",
             "sottotitolo": "finaliste U14",
             "voci": [
-              { "categoria": "U14", "nome": "🏆 Finaliste U14", "provenienza": "(prima della finale 15:00)" }
+              {
+                "categoria": "U14",
+                "nome": "🏆 Finaliste U14",
+                "provenienza": "(prima della finale 15:00)"
+              }
             ]
           }
         ]
