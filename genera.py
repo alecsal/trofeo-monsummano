@@ -1079,6 +1079,198 @@ def genera_excel(dati, loghi, output_path='torneo_programma.xlsx'):
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# GRIGLIA PRANZI GENERATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+def genera_griglia_pranzi(dati, output_path='griglia_pranzi_torneo.xlsx'):
+    """Genera la griglia pranzi Excel dai dati mensa del JSON."""
+    from openpyxl import Workbook
+    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    from openpyxl.utils import get_column_letter
+
+    mensa_cfg = dati.get('mensa', {})
+    if not mensa_cfg.get('giorni'):
+        print("⚠️  Nessun dato mensa, griglia pranzi non generata.")
+        return
+
+    F_TITLE = Font(name='Calibri', size=16, bold=True, color='0A1F5C')
+    F_HDR = Font(name='Calibri', size=11, bold=True, color='FFFFFF')
+    F_BODY = Font(name='Calibri', size=10)
+    F_BOLD = Font(name='Calibri', size=10, bold=True)
+    F_ALLERGIE = Font(name='Calibri', size=10, bold=True, color='B45309')
+
+    FILL_HDR = PatternFill('solid', fgColor='0A1F5C')
+    FILL_DAY = PatternFill('solid', fgColor='162847')
+    FILL_U13 = PatternFill('solid', fgColor='DDEEFF')
+    FILL_U14 = PatternFill('solid', fgColor='FFDDDD')
+    FILL_VERDE = PatternFill('solid', fgColor='DCFCE7')
+    FILL_ARANCIO = PatternFill('solid', fgColor='FFEDD5')
+    FILL_GOLD_BG = PatternFill('solid', fgColor='FEF3C7')
+    FILL_ALLERGIE = PatternFill('solid', fgColor='FEF3C7')
+    FILL_TOTAL = PatternFill('solid', fgColor='E0E7FF')
+
+    thin = Side(border_style='thin', color='CCCCCC')
+    BORDER = Border(left=thin, right=thin, top=thin, bottom=thin)
+    CENTER = Alignment(horizontal='center', vertical='center', wrap_text=True)
+    LEFT = Alignment(horizontal='left', vertical='center', wrap_text=True)
+
+    fill_by_color = {'verde': FILL_VERDE, 'arancio': FILL_ARANCIO, 'gold': FILL_GOLD_BG}
+    giorno_short = {'G1': 'Venerdì 1 Mag', 'G2': 'Sabato 2 Mag', 'G3': 'Domenica 3 Mag'}
+    giorno_sheet = {'G1': 'Venerdì', 'G2': 'Sabato', 'G3': 'Domenica'}
+
+    wb = Workbook()
+
+    # ── RIEPILOGO ──
+    ws_r = wb.active
+    ws_r.title = 'Riepilogo'
+    ws_r.merge_cells('A1:G1')
+    ws_r['A1'] = f'GRIGLIA PRANZI — {dati["torneo"]["nome"]} {dati["torneo"]["anno"]}'
+    ws_r['A1'].font = F_TITLE
+    ws_r['A1'].alignment = CENTER
+    ws_r.row_dimensions[1].height = 28
+
+    for ci, h in enumerate(['Giorno', 'Orario', 'Locale', 'Cat.', 'Squadra', 'PAX', 'Allergie & intolleranze'], 1):
+        c = ws_r.cell(row=3, column=ci, value=h)
+        c.font = F_HDR; c.fill = FILL_HDR; c.alignment = CENTER; c.border = BORDER
+
+    row = 4
+    for giorno in mensa_cfg['giorni']:
+        ws_r.merge_cells(start_row=row, start_column=1, end_row=row, end_column=7)
+        c = ws_r.cell(row=row, column=1, value=f"  {giorno['titolo']}")
+        c.font = Font(name='Calibri', size=13, bold=True, color='FFFFFF')
+        c.fill = FILL_DAY
+        c.alignment = Alignment(horizontal='left', vertical='center', indent=1)
+        ws_r.row_dimensions[row].height = 22
+        row += 1
+        for t in giorno['turni']:
+            fill_t = fill_by_color.get(t['colore'], PatternFill())
+            for v in t.get('voci', []):
+                vals = [giorno_short.get(giorno['codice'], giorno['codice']),
+                        t['orario'], t['locale'], v['categoria'], v['nome'],
+                        v.get('pax', ''), v.get('allergie', '')]
+                for ci, val in enumerate(vals, 1):
+                    c = ws_r.cell(row=row, column=ci, value=val)
+                    c.font = F_BODY
+                    c.alignment = CENTER if ci in (1, 2, 4, 6) else LEFT
+                    c.border = BORDER
+                    c.fill = fill_t
+                    if ci == 4:
+                        c.fill = FILL_U13 if v['categoria'] == 'U13' else FILL_U14
+                        c.font = F_BOLD
+                    elif ci == 7 and v.get('allergie'):
+                        c.fill = FILL_ALLERGIE
+                        c.font = F_ALLERGIE
+                row += 1
+
+    for ci, w in enumerate([18, 10, 18, 8, 30, 8, 28], 1):
+        ws_r.column_dimensions[get_column_letter(ci)].width = w
+    ws_r.freeze_panes = 'A4'
+
+    # ── FOGLIO PER GIORNO ──
+    for giorno in mensa_cfg['giorni']:
+        sheet_name = giorno_sheet.get(giorno['codice'], giorno['codice'])
+        ws_d = wb.create_sheet(sheet_name)
+        ws_d.merge_cells('A1:F1')
+        ws_d['A1'] = giorno['titolo']
+        ws_d['A1'].font = F_TITLE
+        ws_d['A1'].alignment = CENTER
+        ws_d.row_dimensions[1].height = 28
+
+        for ci, h in enumerate(['Orario', 'Locale', 'Cat.', 'Squadra', 'PAX', 'Allergie & intolleranze'], 1):
+            c = ws_d.cell(row=3, column=ci, value=h)
+            c.font = F_HDR; c.fill = FILL_HDR; c.alignment = CENTER; c.border = BORDER
+
+        row = 4
+        for t in giorno['turni']:
+            fill_t = fill_by_color.get(t['colore'], PatternFill())
+            total_pax = sum(v.get('pax', 0) for v in t.get('voci', []) if isinstance(v.get('pax'), int))
+            has_allergie = any(v.get('allergie') for v in t.get('voci', []))
+            sub = t.get('sottotitolo', '')
+            ws_d.merge_cells(start_row=row, start_column=1, end_row=row, end_column=6)
+            c = ws_d.cell(row=row, column=1, value=f"  {t['etichetta']} · {sub}")
+            c.font = F_BOLD; c.fill = fill_t
+            c.alignment = Alignment(horizontal='left', vertical='center', indent=1)
+            c.border = BORDER
+            ws_d.row_dimensions[row].height = 20
+            row += 1
+
+            for v in t.get('voci', []):
+                vals = [t['orario'], t['locale'], v['categoria'], v['nome'],
+                        v.get('pax', ''), v.get('allergie', '')]
+                for ci, val in enumerate(vals, 1):
+                    c = ws_d.cell(row=row, column=ci, value=val)
+                    c.font = F_BODY
+                    c.alignment = CENTER if ci in (1, 3, 5) else LEFT
+                    c.border = BORDER
+                    if ci == 3:
+                        c.fill = FILL_U13 if v['categoria'] == 'U13' else FILL_U14
+                        c.font = F_BOLD
+                    elif ci == 6 and v.get('allergie'):
+                        c.fill = FILL_ALLERGIE
+                        c.font = F_ALLERGIE
+                row += 1
+
+            # Riga totale coperti
+            ws_d.merge_cells(start_row=row, start_column=1, end_row=row, end_column=4)
+            c = ws_d.cell(row=row, column=1, value='TOTALE COPERTI')
+            c.font = F_BOLD; c.fill = FILL_TOTAL
+            c.alignment = Alignment(horizontal='right', vertical='center')
+            c.border = BORDER
+            c5 = ws_d.cell(row=row, column=5, value=total_pax)
+            c5.font = Font(name='Calibri', size=11, bold=True, color='0A1F5C')
+            c5.fill = FILL_TOTAL; c5.alignment = CENTER; c5.border = BORDER
+            c6 = ws_d.cell(row=row, column=6, value='⚠ allergie presenti' if has_allergie else '')
+            c6.font = F_ALLERGIE; c6.alignment = CENTER; c6.border = BORDER
+            if has_allergie:
+                c6.fill = FILL_ALLERGIE
+            row += 2
+
+        for ci, w in enumerate([10, 18, 8, 30, 8, 28], 1):
+            ws_d.column_dimensions[get_column_letter(ci)].width = w
+        ws_d.freeze_panes = 'A4'
+
+    # ── FOGLIO ALLERGIE ──
+    ws_all = wb.create_sheet('⚠ Allergie')
+    ws_all.merge_cells('A1:G1')
+    ws_all['A1'] = 'ALLERGIE & INTOLLERANZE'
+    ws_all['A1'].font = Font(name='Calibri', size=16, bold=True, color='B45309')
+    ws_all['A1'].fill = PatternFill('solid', fgColor='FEF3C7')
+    ws_all['A1'].alignment = CENTER
+    ws_all.row_dimensions[1].height = 28
+
+    for ci, h in enumerate(['Giorno', 'Orario', 'Locale', 'Cat.', 'Squadra', 'PAX', 'Allergie & intolleranze'], 1):
+        c = ws_all.cell(row=3, column=ci, value=h)
+        c.font = F_HDR; c.fill = FILL_HDR; c.alignment = CENTER; c.border = BORDER
+
+    row = 4
+    for giorno in mensa_cfg['giorni']:
+        for t in giorno['turni']:
+            for v in t.get('voci', []):
+                if v.get('allergie'):
+                    vals = [giorno_short.get(giorno['codice'], giorno['codice']),
+                            t['orario'], t['locale'], v['categoria'], v['nome'],
+                            v.get('pax', ''), v['allergie']]
+                    for ci, val in enumerate(vals, 1):
+                        c = ws_all.cell(row=row, column=ci, value=val)
+                        c.font = F_ALLERGIE if ci == 7 else F_BODY
+                        c.fill = FILL_ALLERGIE
+                        c.alignment = CENTER if ci in (1, 2, 4, 6) else LEFT
+                        c.border = BORDER
+                        if ci == 4:
+                            c.fill = FILL_U13 if v['categoria'] == 'U13' else FILL_U14
+                            c.font = F_BOLD
+                    row += 1
+
+    for ci, w in enumerate([18, 10, 18, 8, 30, 8, 28], 1):
+        ws_all.column_dimensions[get_column_letter(ci)].width = w
+    ws_all.freeze_panes = 'A4'
+
+    wb.save(output_path)
+    size_kb = Path(output_path).stat().st_size / 1024
+    print(f"✅ {output_path} ({size_kb:.0f} KB)")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 # MAIN
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -1100,6 +1292,7 @@ def main():
         genera_html(dati, loghi, output_dir / 'index.html')
     if not args.only_html:
         genera_excel(dati, loghi, output_dir / 'torneo_programma.xlsx')
+        genera_griglia_pranzi(dati, output_dir / 'griglia_pranzi_torneo.xlsx')
 
 
 if __name__ == '__main__':
