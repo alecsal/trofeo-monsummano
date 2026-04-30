@@ -839,12 +839,18 @@
             "locale": "Caffè Micky",
             "colore": "verde",
             "etichetta": "☕ Caffè Micky · 12:30",
-            "sottotitolo": "24 coperti",
+            "sottotitolo": "33 coperti",
             "voci": [
               {
                 "categoria": "U13",
                 "nome": "Endas Pistoia",
                 "pax": 24,
+                "allergie": ""
+              },
+              {
+                "categoria": "U13",
+                "nome": "Shoemakers",
+                "pax": 9,
                 "allergie": ""
               }
             ]
@@ -896,7 +902,7 @@
             "locale": "Pool Bar",
             "colore": "arancio",
             "etichetta": "🍽 Pool Bar · 14:00",
-            "sottotitolo": "101 coperti · ⚠ allergie",
+            "sottotitolo": "121 coperti · ⚠ allergie",
             "voci": [
               {
                 "categoria": "U13",
@@ -920,6 +926,18 @@
                 "categoria": "U14",
                 "nome": "San Fr. Ittiri",
                 "pax": 12,
+                "allergie": ""
+              },
+              {
+                "categoria": "U14",
+                "nome": "Shoemakers",
+                "pax": 9,
+                "allergie": ""
+              },
+              {
+                "categoria": "U14",
+                "nome": "La T Gema",
+                "pax": 11,
                 "allergie": ""
               }
             ]
