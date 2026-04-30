@@ -854,7 +854,7 @@
             "locale": "Pool Bar",
             "colore": "arancio",
             "etichetta": "🍽 Pool Bar · 12:30",
-            "sottotitolo": "38 coperti · ⚠ allergie",
+            "sottotitolo": "42 coperti · ⚠ allergie",
             "voci": [
               {
                 "categoria": "U14",
@@ -865,7 +865,7 @@
               {
                 "categoria": "U13",
                 "nome": "Dany Basket",
-                "pax": 23,
+                "pax": 27,
                 "allergie": ""
               }
             ]
@@ -965,13 +965,19 @@
             "locale": "Caffè Micky",
             "colore": "verde",
             "etichetta": "☕ Caffè Micky · 13:30",
-            "sottotitolo": "4 coperti · ⚠ allergie",
+            "sottotitolo": "35 coperti · ⚠ allergie",
             "voci": [
               {
                 "categoria": "U13",
                 "nome": "Mens Sana Siena",
                 "pax": 4,
                 "allergie": "⚠ 1 celiaco"
+              },
+              {
+                "categoria": "U13",
+                "nome": "Dany Basket",
+                "pax": 31,
+                "allergie": ""
               }
             ]
           },
