@@ -881,14 +881,8 @@
             "locale": "Caffè Micky",
             "colore": "verde",
             "etichetta": "☕ Caffè Micky · 14:00",
-            "sottotitolo": "76 coperti · ⚠ allergie",
+            "sottotitolo": "40 coperti · ⚠ allergie",
             "voci": [
-              {
-                "categoria": "U13",
-                "nome": "Mens Sana Siena",
-                "pax": 36,
-                "allergie": "⚠ 1 celiaco"
-              },
               {
                 "categoria": "U13",
                 "nome": "TissIttiri",
@@ -908,8 +902,14 @@
             "locale": "Pool Bar",
             "colore": "arancio",
             "etichetta": "🍽 Pool Bar · 14:00",
-            "sottotitolo": "65 coperti · ⚠ allergie",
+            "sottotitolo": "101 coperti · ⚠ allergie",
             "voci": [
+              {
+                "categoria": "U13",
+                "nome": "Mens Sana Siena",
+                "pax": 36,
+                "allergie": "⚠ 1 celiaco"
+              },
               {
                 "categoria": "U13",
                 "nome": "Codigoro Basket",
