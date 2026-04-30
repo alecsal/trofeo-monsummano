@@ -854,7 +854,7 @@
             "locale": "Pool Bar",
             "colore": "arancio",
             "etichetta": "🍽 Pool Bar · 12:30",
-            "sottotitolo": "32 coperti · ⚠ allergie",
+            "sottotitolo": "38 coperti · ⚠ allergie",
             "voci": [
               {
                 "categoria": "U14",
@@ -865,7 +865,7 @@
               {
                 "categoria": "U13",
                 "nome": "Dany Basket",
-                "pax": 17,
+                "pax": 23,
                 "allergie": ""
               }
             ]
