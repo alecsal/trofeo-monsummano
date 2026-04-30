@@ -818,12 +818,6 @@
       },
       {
         "giorno": "G3",
-        "ora": "09:00",
-        "colore": "verde",
-        "testo": "🍽 Mensa 14:00"
-      },
-      {
-        "giorno": "G3",
         "ora": "13:00",
         "colore": "gold",
         "testo": "🏆 Finalissima U13"
@@ -999,57 +993,6 @@
                 "nome": "Basket Loano",
                 "pax": 18,
                 "allergie": "⚠ 1 celiaco"
-              },
-              {
-                "categoria": "U14",
-                "nome": "Chiesina Basket",
-                "pax": 15,
-                "allergie": "⚠ 1 celiaco · 1 intollerante lattosio"
-              },
-              {
-                "categoria": "U14",
-                "nome": "San Fr. Ittiri",
-                "pax": 12,
-                "allergie": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "codice": "G3",
-        "titolo": "GIORNO 3 — Domenica 3 Maggio",
-        "turni": [
-          {
-            "orario": "14:00",
-            "locale": "Pool Bar",
-            "colore": "arancio",
-            "etichetta": "🍽 Pool Bar · 14:00",
-            "sottotitolo": "120 coperti · ⚠ allergie",
-            "voci": [
-              {
-                "categoria": "U13",
-                "nome": "Codigoro Basket",
-                "pax": 35,
-                "allergie": ""
-              },
-              {
-                "categoria": "U13",
-                "nome": "TissIttiri",
-                "pax": 24,
-                "allergie": "⚠ allergia peperoncino · intolleranza lattosio · allergia tonno"
-              },
-              {
-                "categoria": "U14",
-                "nome": "Basket Loano",
-                "pax": 18,
-                "allergie": "⚠ 1 celiaco"
-              },
-              {
-                "categoria": "U13",
-                "nome": "Basket Marsciano",
-                "pax": 16,
-                "allergie": ""
               },
               {
                 "categoria": "U14",
