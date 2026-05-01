@@ -366,9 +366,9 @@
       "squadra1": "Basket Marsciano",
       "squadra2": "Shoemakers",
       "fase": "Girone A13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false
+      "punti1": 45,
+      "punti2": 50,
+      "giocata": true
     },
     {
       "n": 10,
