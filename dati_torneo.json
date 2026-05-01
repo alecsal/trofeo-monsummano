@@ -944,13 +944,13 @@
             "locale": "Pool Bar",
             "colore": "arancio",
             "etichetta": "🍽 Pool Bar · 12:30",
-            "sottotitolo": "24 coperti · ⚠ allergie",
+            "sottotitolo": "35 coperti",
             "voci": [
               {
                 "categoria": "U13",
-                "nome": "TissIttiri",
-                "pax": 24,
-                "allergie": "⚠ allergia peperoncino · intolleranza lattosio · allergia tonno"
+                "nome": "Codigoro Basket",
+                "pax": 35,
+                "allergie": ""
               }
             ]
           },
@@ -980,13 +980,13 @@
             "locale": "Pool Bar",
             "colore": "arancio",
             "etichetta": "🍽 Pool Bar · 13:30",
-            "sottotitolo": "80 coperti · ⚠ allergie",
+            "sottotitolo": "69 coperti · ⚠ allergie",
             "voci": [
               {
                 "categoria": "U13",
-                "nome": "Codigoro Basket",
-                "pax": 35,
-                "allergie": ""
+                "nome": "TissIttiri",
+                "pax": 24,
+                "allergie": "⚠ allergia peperoncino · intolleranza lattosio · allergia tonno"
               },
               {
                 "categoria": "U14",
