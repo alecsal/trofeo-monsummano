@@ -793,30 +793,6 @@
   "mensa": {
     "slot_badges": [
       {
-        "giorno": "G1",
-        "ora": "10:00",
-        "colore": "verde",
-        "testo": "🍽 Mensa 12:30"
-      },
-      {
-        "giorno": "G1",
-        "ora": "12:00",
-        "colore": "arancio",
-        "testo": "✈️ Fuori regione · Mensa 14:00"
-      },
-      {
-        "giorno": "G2",
-        "ora": "09:00",
-        "colore": "verde",
-        "testo": "🍽 Mensa 12:30"
-      },
-      {
-        "giorno": "G2",
-        "ora": "11:00",
-        "colore": "arancio",
-        "testo": "🍽 Mensa 13:30"
-      },
-      {
         "giorno": "G3",
         "ora": "13:00",
         "colore": "gold",
