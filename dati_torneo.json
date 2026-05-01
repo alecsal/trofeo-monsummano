@@ -262,9 +262,9 @@
       "squadra1": "Dany Basket",
       "squadra2": "Prato Dragons",
       "fase": "Girone B13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false
+      "punti1": 21,
+      "punti2": 108,
+      "giocata": true
     },
     {
       "n": 2,
