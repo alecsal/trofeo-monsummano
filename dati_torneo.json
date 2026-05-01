@@ -392,9 +392,9 @@
       "squadra1": "Basket Calcinaia",
       "squadra2": "Shoemakers",
       "fase": "Girone A14",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false
+      "punti1": 33,
+      "punti2": 92,
+      "giocata": true
     },
     {
       "n": 12,
