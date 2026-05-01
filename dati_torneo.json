@@ -340,9 +340,9 @@
       "squadra1": "Basket Loano",
       "squadra2": "Shoemakers",
       "fase": "Girone A14",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false
+      "punti1": 42,
+      "punti2": 66,
+      "giocata": true
     },
     {
       "n": 8,
