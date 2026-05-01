@@ -57,9 +57,9 @@ def calcola_classifica(dati, girone_code):
     """
     Calcola la classifica di un girone basandosi sulle partite giocate.
 
-    Regole italiane FIP:
+    Regole:
     - Vittoria = 2 punti
-    - Sconfitta = 1 punto (anche dopo tempi supplementari)
+    - Sconfitta = 0 punti
     - Sconfitta a tavolino = 0 punti (non gestito qui)
 
     Ritorna una lista ordinata: [{nome, G, V, P, PF, PS, Pti, pos}, ...]
@@ -102,12 +102,10 @@ def calcola_classifica(dati, girone_code):
             stats[s1]['V'] += 1
             stats[s2]['P'] += 1
             stats[s1]['Pti'] += 2
-            stats[s2]['Pti'] += 1
         elif pt2 > pt1:
             stats[s2]['V'] += 1
             stats[s1]['P'] += 1
             stats[s2]['Pti'] += 2
-            stats[s1]['Pti'] += 1
         # Pareggio non ammesso nel basket; se per errore 0-0 non giocata, già filtrata
 
     # Ordina: mantieni ordine squadre quando nessuna partita giocata
