@@ -658,9 +658,9 @@
       "squadra1": "Mens Sana Siena",
       "squadra2": "Endas Pistoia",
       "fase": "Semifinale Bronzo U13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 99,
+      "punti2": 46,
+      "giocata": true,
       "placeholder": true
     },
     {
