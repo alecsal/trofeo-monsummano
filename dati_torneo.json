@@ -602,9 +602,9 @@
       "squadra1": "TissIttiri",
       "squadra2": "Dany Basket",
       "fase": "Semifinale Bronzo U13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 70,
+      "punti2": 62,
+      "giocata": true,
       "placeholder": true
     },
     {
