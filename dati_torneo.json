@@ -610,8 +610,8 @@
     {
       "n": 28,
       "giorno": "G2",
-      "ora": "15:00",
-      "impianto": "D",
+      "ora": "17:00",
+      "impianto": "A",
       "categoria": "U14",
       "squadra1": "Basket Loano",
       "squadra2": "San Fr. Ittiri",
@@ -624,8 +624,8 @@
     {
       "n": 29,
       "giorno": "G2",
-      "ora": "17:00",
-      "impianto": "A",
+      "ora": "15:00",
+      "impianto": "D",
       "categoria": "U13",
       "squadra1": "Prato Dragons",
       "squadra2": "Basket Marsciano",
