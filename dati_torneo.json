@@ -483,9 +483,9 @@
       "squadra1": "Basket Marsciano",
       "squadra2": "Endas Pistoia",
       "fase": "Girone A13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false
+      "punti1": 66,
+      "punti2": 48,
+      "giocata": true
     },
     {
       "n": 19,
