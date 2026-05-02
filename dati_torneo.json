@@ -672,9 +672,9 @@
       "squadra1": "Fucecchio",
       "squadra2": "Massa e Cozzile",
       "fase": "Semifinale Bronzo U14",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 50,
+      "punti2": 45,
+      "giocata": true,
       "placeholder": true
     },
     {
