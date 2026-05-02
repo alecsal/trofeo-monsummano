@@ -128,6 +128,122 @@ def calcola_classifica(dati, girone_code):
     return classifica
 
 
+def calcola_classifica_finale(dati, categoria):
+    """
+    Calcola la classifica finale (1°-8° posto) per categoria U13 o U14
+    basandosi sulle finali di piazzamento giocate.
+
+    Ritorna una lista ordinata di dict:
+      [{'pos': 1..8, 'nome_breve', 'nome_esteso', 'logo_key',
+        'punti_w', 'avversario', 'punti_l', 'fonte'}, ...]
+
+    Le posizioni non ancora determinate hanno 'nome_breve' = None.
+    """
+    # Mappa: fase -> (pos_vincitore, pos_perdente)
+    finali_map = {
+        'U13': {
+            f'🏆 FINALISSIMA 1°/2° U13': (1, 2),
+            'Finale 3°/4° U13': (3, 4),
+            'Finale 5°/6° U13': (5, 6),
+            'Finale 7°/8° U13': (7, 8),
+        },
+        'U14': {
+            f'🏆 FINALISSIMA 1°/2° U14': (1, 2),
+            'Finale 3°/4° U14': (3, 4),
+        },
+    }
+
+    # nome_breve -> info squadra
+    info = {}
+    for gruppo in dati['squadre'].values():
+        for sq in gruppo:
+            info[sq['nome_breve']] = sq
+
+    posizioni = {}  # pos -> dict
+
+    def metti(pos, sq_nome, punti_w=None, avv=None, punti_l=None, fonte=''):
+        sq = info.get(sq_nome)
+        if not sq:
+            return
+        posizioni[pos] = {
+            'pos': pos,
+            'nome_breve': sq['nome_breve'],
+            'nome_esteso': sq['nome_esteso'],
+            'logo_key': sq['logo_key'],
+            'punti_w': punti_w,
+            'avversario': avv,
+            'punti_l': punti_l,
+            'fonte': fonte,
+        }
+
+    for p in dati['partite']:
+        if p.get('categoria') != categoria:
+            continue
+        if not p.get('giocata'):
+            continue
+        if p['fase'] not in finali_map[categoria]:
+            continue
+        pos_w, pos_l = finali_map[categoria][p['fase']]
+        if p['punti1'] > p['punti2']:
+            w, pw, l, pl = p['squadra1'], p['punti1'], p['squadra2'], p['punti2']
+        else:
+            w, pw, l, pl = p['squadra2'], p['punti2'], p['squadra1'], p['punti1']
+        metti(pos_w, w, pw, l, pl, p['fase'])
+        metti(pos_l, l, pl, w, pw, p['fase'])
+
+    # U14: 5°-7° dal mini-torneo (round robin), 8° dall'unica squadra
+    # eliminata in semifinale bronzo che NON partecipa al mini-torneo.
+    if categoria == 'U14':
+        mini_partite = [p for p in dati['partite']
+                        if 'Mini-torneo' in p.get('fase', '')
+                        and p.get('categoria') == categoria]
+        squadre_mini = set()
+        for p in mini_partite:
+            squadre_mini.add(p['squadra1'])
+            squadre_mini.add(p['squadra2'])
+        n_attese = max(1, len(squadre_mini) * (len(squadre_mini) - 1) // 2)
+        giocate = [p for p in mini_partite if p.get('giocata')]
+        if squadre_mini and len(giocate) == n_attese:
+            stats = {s: {'V': 0, 'P': 0, 'PF': 0, 'PS': 0, 'Pti': 0}
+                     for s in squadre_mini}
+            for p in giocate:
+                s1, s2, p1, p2 = p['squadra1'], p['squadra2'], p['punti1'], p['punti2']
+                stats[s1]['PF'] += p1; stats[s1]['PS'] += p2
+                stats[s2]['PF'] += p2; stats[s2]['PS'] += p1
+                if p1 > p2:
+                    stats[s1]['V'] += 1; stats[s2]['P'] += 1; stats[s1]['Pti'] += 2
+                else:
+                    stats[s2]['V'] += 1; stats[s1]['P'] += 1; stats[s2]['Pti'] += 2
+            ordinate = sorted(stats.items(), key=lambda x: (
+                -x[1]['Pti'], -(x[1]['PF'] - x[1]['PS']), -x[1]['PF']))
+            for i, (team, st) in enumerate(ordinate, 5):
+                metti(i, team, fonte='Mini-torneo 5°-7° U14')
+
+        # 8° posto: squadra di semifinale bronzo non presente nel mini-torneo
+        bronze_teams = set()
+        for p in dati['partite']:
+            if ('Semifinale Bronzo' in p.get('fase', '')
+                    and p.get('categoria') == categoria
+                    and not p.get('placeholder', False) is True):
+                bronze_teams.add(p['squadra1'])
+                bronze_teams.add(p['squadra2'])
+        # placeholder: in questo torneo le semifinali sono marcate placeholder=true
+        # ma sono comunque giocate; usiamo direttamente le partite indipendentemente
+        # dal flag placeholder per individuare le squadre.
+        if not bronze_teams:
+            for p in dati['partite']:
+                if 'Semifinale Bronzo' in p.get('fase', '') and p.get('categoria') == categoria:
+                    bronze_teams.add(p['squadra1'])
+                    bronze_teams.add(p['squadra2'])
+        out = bronze_teams - squadre_mini
+        if len(out) == 1:
+            metti(8, next(iter(out)), fonte='Eliminata in Semifinale Bronzo')
+
+    # Costruisci lista 1..max_pos
+    max_pos = 8
+    return [posizioni.get(i, {'pos': i, 'nome_breve': None}) for i in range(1, max_pos + 1)]
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # HTML GENERATION
 # ═══════════════════════════════════════════════════════════════════════════
@@ -290,6 +406,69 @@ def genera_html(dati, loghi, output_path='index.html'):
 
             gironi_html += f'<section class="girone-box"><div class="girone-hdr"><span class="girone-cat cat-{ccls}">{cat}</span><h3>Girone {gc}</h3><span class="girone-n">4 squadre</span></div><div class="teams-row">{cards}</div>{standings_html}</section>'
 
+    # ── SEZIONE CLASSIFICA FINALE ──
+    medals = {1: '🥇', 2: '🥈', 3: '🥉'}
+
+    def render_classifica_finale_blocco(cat):
+        ccls = 'u13' if cat == 'U13' else 'u14'
+        clf = calcola_classifica_finale(dati, cat)
+        determinate = sum(1 for r in clf if r.get('nome_breve'))
+        totale = len(clf)
+        sub = f'{determinate}/{totale} posizioni assegnate' if determinate < totale else 'Classifica completa'
+
+        # Podio (1°, 2°, 3°)
+        podio_cards = ''
+        for pos in [2, 1, 3]:  # ordine visivo: 2°, 1° (al centro), 3°
+            r = next((x for x in clf if x['pos'] == pos), {'pos': pos, 'nome_breve': None})
+            altezza_cls = f'pod-{pos}'
+            medal = medals.get(pos, '')
+            if r.get('nome_breve'):
+                logo = loghi.get(r['logo_key'], '')
+                punteggio = ''
+                if r.get('punti_w') is not None and r.get('punti_l') is not None:
+                    punteggio = f'<div class="pod-score">{r["punti_w"]}–{r["punti_l"]} <span class="pod-score-vs">vs {r["avversario"]}</span></div>'
+                inner = (f'<div class="pod-medal">{medal}</div>'
+                         f'<div class="pod-pos">{pos}°</div>'
+                         f'<img src="{logo}" alt="{r["nome_breve"]}" class="pod-logo">'
+                         f'<div class="pod-name">{r["nome_esteso"]}</div>'
+                         f'{punteggio}')
+            else:
+                inner = (f'<div class="pod-medal">{medal}</div>'
+                         f'<div class="pod-pos">{pos}°</div>'
+                         f'<div class="pod-logo pod-logo-empty">?</div>'
+                         f'<div class="pod-name pod-name-empty">In attesa</div>')
+            podio_cards += f'<div class="pod-card {altezza_cls}">{inner}</div>'
+
+        # Tabella posizioni 4°-8°
+        rows = ''
+        for r in clf:
+            if r['pos'] <= 3:
+                continue
+            if r.get('nome_breve'):
+                logo = loghi.get(r['logo_key'], '')
+                fonte = r.get('fonte', '')
+                punteggio = ''
+                if r.get('punti_w') is not None and r.get('punti_l') is not None:
+                    punteggio = f'<span class="cf-score">{r["punti_w"]}–{r["punti_l"]} vs {r["avversario"]}</span>'
+                rows += (f'<tr><td class="cf-pos">{r["pos"]}°</td>'
+                         f'<td class="cf-team"><img src="{logo}" alt="{r["nome_breve"]}"><span>{r["nome_esteso"]}</span></td>'
+                         f'<td class="cf-info">{punteggio}<span class="cf-fonte">{fonte}</span></td></tr>')
+            else:
+                rows += (f'<tr class="cf-pending"><td class="cf-pos">{r["pos"]}°</td>'
+                         f'<td class="cf-team"><span class="cf-team-pending">In attesa</span></td>'
+                         f'<td class="cf-info"><span class="cf-fonte">—</span></td></tr>')
+
+        return f'''<section class="girone-box cf-box">
+<div class="girone-hdr"><span class="girone-cat cat-{ccls}">{cat}</span><h3>Classifica Finale {cat}</h3><span class="girone-n">{sub}</span></div>
+<div class="podio-wrap">{podio_cards}</div>
+<div class="standings-box"><table class="standings-table cf-table"><tbody>{rows}</tbody></table></div>
+</section>'''
+
+    classifica_finale_html = (
+        render_classifica_finale_blocco('U13')
+        + render_classifica_finale_blocco('U14')
+    )
+
     # ── TEAM STRIP ──
     strip_nomi = []
     for gcode in ['A13', 'B13', 'A14', 'B14']:
@@ -445,6 +624,7 @@ def genera_html(dati, loghi, output_path='index.html'):
 <nav class="nav-tabs">
 <button class="tab active" onclick="show('programma',event)">📅 Programma</button>
 <button class="tab" onclick="show('gironi',event)">🏅 Gironi</button>
+<button class="tab" onclick="show('finale',event)">🏆 Classifica Finale</button>
 <button class="tab" onclick="show('mensa',event)">🍽 Mensa</button>
 <button class="tab" onclick="show('impianti',event)">🏟 Impianti</button>
 </nav>
@@ -471,6 +651,14 @@ def genera_html(dati, loghi, output_path='index.html'):
 <li>Ultime 2 → <strong>Semifinali Bronzo</strong> (5°–8° posto)</li></ul>
 </div>
 {gironi_html}
+</section>
+
+<section class="section" id="sec-finale">
+<div class="info-box">
+<h3>🏆 Classifica Finale</h3>
+<p>Posizioni assegnate man mano che vengono giocate le finali di domenica. Per <strong>U13</strong> sono previste 4 finali (1°/2°, 3°/4°, 5°/6°, 7°/8°). Per <strong>U14</strong> sono previste 2 finali (1°/2°, 3°/4°) e un mini-torneo a 3 squadre per i posti dal 5° al 7°; l'8° è assegnato d'ufficio alla squadra eliminata in semifinale Bronzo che non partecipa al mini-torneo.</p>
+</div>
+{classifica_finale_html}
 </section>
 
 <section class="section" id="sec-mensa">
@@ -609,6 +797,34 @@ h1 span{color:var(--gold)}
 .standings-table td.pts{text-align:center;font-weight:900;font-size:14px;color:var(--tx)}
 .standings-table td.team img{width:26px;height:26px;vertical-align:middle;border-radius:4px;object-fit:contain;background:#fff;border:1px solid var(--sf3);padding:2px;margin-right:7px;flex-shrink:0}
 .standings-table td.team span{vertical-align:middle;font-weight:600;font-size:13px;color:var(--tx)}
+.cf-box{margin-bottom:22px}
+.podio-wrap{display:flex;align-items:flex-end;justify-content:center;gap:10px;padding:24px 14px 18px;background:linear-gradient(180deg,#fff8e6 0%,var(--sf) 100%);border-bottom:1px solid var(--sf3)}
+.pod-card{flex:1;max-width:200px;min-width:0;background:var(--sf);border:1px solid var(--sf3);border-radius:10px;padding:10px 8px 12px;text-align:center;box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}
+.pod-1{order:2;border-color:#f7b500;background:linear-gradient(180deg,#fff5cc 0%,var(--sf) 70%);box-shadow:0 4px 14px rgba(247,181,0,.25);transform:translateY(-12px)}
+.pod-2{order:1;border-color:#cbd5e1;background:linear-gradient(180deg,#f1f5f9 0%,var(--sf) 70%)}
+.pod-3{order:3;border-color:#d4a574;background:linear-gradient(180deg,#fbe9d4 0%,var(--sf) 70%)}
+.pod-medal{font-size:28px;line-height:1}
+.pod-1 .pod-medal{font-size:34px}
+.pod-pos{font-family:Arial Black,sans-serif;font-size:14px;font-weight:900;color:var(--gold);letter-spacing:1px}
+.pod-logo{width:60px;height:60px;object-fit:contain;background:#fff;border:1px solid var(--sf3);border-radius:8px;padding:4px}
+.pod-1 .pod-logo{width:72px;height:72px}
+.pod-logo-empty{display:flex;align-items:center;justify-content:center;color:var(--mu);font-family:Arial Black,sans-serif;font-size:24px}
+.pod-name{font-size:13px;font-weight:700;color:var(--tx);line-height:1.2;padding:0 2px}
+.pod-1 .pod-name{font-size:14px}
+.pod-name-empty{color:var(--mu);font-style:italic;font-weight:500}
+.pod-score{font-size:11px;color:var(--dim);font-weight:600;margin-top:2px}
+.pod-score-vs{color:var(--mu);font-weight:500}
+.cf-table td{padding:8px;border-bottom:1px solid var(--sf3);vertical-align:middle}
+.cf-table tr:last-child td{border-bottom:none}
+.cf-table .cf-pos{text-align:center;font-family:Arial Black,sans-serif;font-weight:900;color:var(--gold);font-size:14px;width:46px}
+.cf-table .cf-team{display:flex;align-items:center;gap:8px}
+.cf-table .cf-team img{width:30px;height:30px;border-radius:4px;object-fit:contain;background:#fff;border:1px solid var(--sf3);padding:2px;flex-shrink:0}
+.cf-table .cf-team span{font-weight:600;font-size:13px;color:var(--tx)}
+.cf-table .cf-info{text-align:right;white-space:nowrap}
+.cf-table .cf-score{font-size:12px;font-weight:600;color:var(--dim);margin-right:8px}
+.cf-table .cf-fonte{font-size:10px;color:var(--mu);font-style:italic}
+.cf-table .cf-pending .cf-pos{color:var(--mu)}
+.cf-table .cf-team-pending{font-style:italic;color:var(--mu);font-weight:500;font-size:12px}
 .info-box{background:var(--sf);border-left:4px solid var(--gold);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;line-height:1.6;color:var(--dim);box-shadow:var(--shadow)}
 .info-box strong{color:var(--tx)}
 .info-box h3{font-size:14px;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
@@ -645,7 +861,7 @@ h1 span{color:var(--gold)}
 .footer{text-align:center;margin-top:40px;padding:24px 14px;border-top:3px solid var(--gold);background:var(--navy);color:rgba(255,255,255,.75);font-size:11px;line-height:1.6}
 .footer b{color:var(--gold);font-weight:700}
 .footer a{color:#fff}
-@media (max-width:500px){body{font-size:13px}.hero{padding:18px 12px 16px}.hero-logos{gap:12px}.hero-logos img{height:56px}.hero-logos .shmk{height:48px;width:48px}h1{font-size:22px;letter-spacing:1.5px}.stat-pill{font-size:10px;padding:4px 10px}.section{padding:12px 8px}.day-header h2{font-size:16px}.slot-header{padding:8px 12px;gap:8px}.slot-time{font-size:18px}.badge-mensa{font-size:9px;padding:2px 7px}.slot-matches{grid-template-columns:1fr}.mc-team{font-size:12px}.mc-team img{width:28px;height:28px}.teams-row{grid-template-columns:1fr}.team-logo{width:48px;height:48px}.team-name{font-size:13px}.girone-hdr h3{font-size:16px}.impianti-grid,.mensa-turni{grid-template-columns:1fr}.topbar{padding:8px 10px}.topbar-inner{gap:14px}.topbar img{height:30px;max-width:90px}}'''
+@media (max-width:500px){body{font-size:13px}.hero{padding:18px 12px 16px}.hero-logos{gap:12px}.hero-logos img{height:56px}.hero-logos .shmk{height:48px;width:48px}h1{font-size:22px;letter-spacing:1.5px}.stat-pill{font-size:10px;padding:4px 10px}.section{padding:12px 8px}.day-header h2{font-size:16px}.slot-header{padding:8px 12px;gap:8px}.slot-time{font-size:18px}.badge-mensa{font-size:9px;padding:2px 7px}.slot-matches{grid-template-columns:1fr}.mc-team{font-size:12px}.mc-team img{width:28px;height:28px}.teams-row{grid-template-columns:1fr}.team-logo{width:48px;height:48px}.team-name{font-size:13px}.girone-hdr h3{font-size:16px}.impianti-grid,.mensa-turni{grid-template-columns:1fr}.topbar{padding:8px 10px}.topbar-inner{gap:14px}.topbar img{height:30px;max-width:90px}.podio-wrap{gap:6px;padding:18px 6px 12px}.pod-card{padding:8px 4px 10px}.pod-1{transform:translateY(-8px)}.pod-medal{font-size:22px}.pod-1 .pod-medal{font-size:28px}.pod-logo{width:46px;height:46px}.pod-1 .pod-logo{width:56px;height:56px}.pod-name{font-size:11px}.pod-1 .pod-name{font-size:12px}.pod-score{font-size:10px}.pod-score-vs{display:block}.cf-table .cf-info{white-space:normal}.cf-table .cf-score{display:block;margin-right:0}}'''
 
 
 # ═══════════════════════════════════════════════════════════════════════════
