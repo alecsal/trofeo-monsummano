@@ -574,9 +574,9 @@
       "squadra1": "Shoemakers",
       "squadra2": "Codigoro Basket",
       "fase": "Semifinale Oro U13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 70,
+      "punti2": 66,
+      "giocata": true,
       "placeholder": true
     },
     {
