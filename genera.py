@@ -180,7 +180,14 @@ def genera_html(dati, loghi, output_path='index.html'):
             is_cer_only = all(p.get('tipo') == 'cerimonia' for p in partite_slot)
             try:
                 h, mm = ora.split(':')
-                end_o = f'{int(h)+2:02d}:{mm}'
+                base_min = int(h) * 60 + int(mm)
+                durs = [45 if 'Mini-torneo' in p.get('fase', '') else 120
+                        for p in partite_slot if p.get('tipo') != 'cerimonia']
+                if durs:
+                    end_min = base_min + max(durs)
+                    end_o = f'{end_min // 60:02d}:{end_min % 60:02d}'
+                else:
+                    end_o = ''
             except Exception:
                 end_o = ''
 
