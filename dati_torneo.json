@@ -568,7 +568,7 @@
     {
       "n": 25,
       "giorno": "G2",
-      "ora": "14:00",
+      "ora": "15:00",
       "impianto": "A",
       "categoria": "U13",
       "squadra1": "1°A13",
@@ -582,7 +582,7 @@
     {
       "n": 26,
       "giorno": "G2",
-      "ora": "14:00",
+      "ora": "15:00",
       "impianto": "B",
       "categoria": "U14",
       "squadra1": "1°A14",
@@ -596,7 +596,7 @@
     {
       "n": 27,
       "giorno": "G2",
-      "ora": "14:00",
+      "ora": "15:00",
       "impianto": "C",
       "categoria": "U13",
       "squadra1": "3°A13",
@@ -610,7 +610,7 @@
     {
       "n": 28,
       "giorno": "G2",
-      "ora": "14:00",
+      "ora": "15:00",
       "impianto": "D",
       "categoria": "U14",
       "squadra1": "3°A14",
@@ -624,7 +624,7 @@
     {
       "n": 29,
       "giorno": "G2",
-      "ora": "16:00",
+      "ora": "17:00",
       "impianto": "A",
       "categoria": "U13",
       "squadra1": "1°B13",
@@ -638,7 +638,7 @@
     {
       "n": 30,
       "giorno": "G2",
-      "ora": "16:00",
+      "ora": "17:00",
       "impianto": "B",
       "categoria": "U14",
       "squadra1": "1°B14",
@@ -652,7 +652,7 @@
     {
       "n": 31,
       "giorno": "G2",
-      "ora": "16:00",
+      "ora": "17:00",
       "impianto": "C",
       "categoria": "U13",
       "squadra1": "3°B13",
@@ -666,7 +666,7 @@
     {
       "n": 32,
       "giorno": "G2",
-      "ora": "16:00",
+      "ora": "17:00",
       "impianto": "D",
       "categoria": "U14",
       "squadra1": "3°B14",
