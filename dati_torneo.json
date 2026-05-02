@@ -535,9 +535,9 @@
       "squadra1": "Dany Basket",
       "squadra2": "Mens Sana Siena",
       "fase": "Girone B13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false
+      "punti1": 44,
+      "punti2": 70,
+      "giocata": true
     },
     {
       "n": 23,
