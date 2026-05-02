@@ -588,8 +588,8 @@
       "squadra1": "Shoemakers",
       "squadra2": "La T Gema",
       "fase": "Semifinale Oro U14",
-      "punti1": 0,
-      "punti2": 0,
+      "punti1": 100,
+      "punti2": 32,
       "giocata": false,
       "placeholder": true
     },
