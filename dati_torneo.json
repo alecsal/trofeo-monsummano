@@ -644,9 +644,9 @@
       "squadra1": "Chiesina Basket",
       "squadra2": "Basket Calcinaia",
       "fase": "Semifinale Oro U14",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 43,
+      "punti2": 72,
+      "giocata": true,
       "placeholder": true
     },
     {
