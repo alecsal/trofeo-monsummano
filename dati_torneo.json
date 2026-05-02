@@ -582,8 +582,8 @@
     {
       "n": 26,
       "giorno": "G2",
-      "ora": "15:00",
-      "impianto": "B",
+      "ora": "17:00",
+      "impianto": "D",
       "categoria": "U14",
       "squadra1": "Shoemakers",
       "squadra2": "La T Gema",
@@ -666,8 +666,8 @@
     {
       "n": 32,
       "giorno": "G2",
-      "ora": "17:00",
-      "impianto": "D",
+      "ora": "15:00",
+      "impianto": "B",
       "categoria": "U14",
       "squadra1": "Fucecchio",
       "squadra2": "Massa e Cozzile",
