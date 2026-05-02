@@ -217,8 +217,8 @@ def genera_html(dati, loghi, output_path='index.html'):
                     match_num_display += 1
                     t1, t2 = m['squadra1'], m['squadra2']
                     is_placeholder = m.get('placeholder', False)
-                    l1 = get_logo(t1, dati, loghi) if not is_placeholder else ''
-                    l2 = get_logo(t2, dati, loghi) if not is_placeholder else ''
+                    l1 = get_logo(t1, dati, loghi)
+                    l2 = get_logo(t2, dati, loghi)
 
                     # Score display
                     if m.get('giocata'):
