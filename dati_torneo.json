@@ -496,9 +496,9 @@
       "squadra1": "Massa e Cozzile",
       "squadra2": "Shoemakers",
       "fase": "Girone A14",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false
+      "punti1": 29,
+      "punti2": 109,
+      "giocata": true
     },
     {
       "n": 20,
