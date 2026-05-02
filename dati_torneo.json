@@ -630,9 +630,9 @@
       "squadra1": "Prato Dragons",
       "squadra2": "Basket Marsciano",
       "fase": "Semifinale Oro U13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 68,
+      "punti2": 42,
+      "giocata": true,
       "placeholder": true
     },
     {
