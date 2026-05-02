@@ -616,9 +616,9 @@
       "squadra1": "Basket Loano",
       "squadra2": "San Fr. Ittiri",
       "fase": "Semifinale Bronzo U14",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 68,
+      "punti2": 35,
+      "giocata": true,
       "placeholder": true
     },
     {
