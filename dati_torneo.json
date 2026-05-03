@@ -742,9 +742,9 @@
       "squadra1": "Fucecchio",
       "squadra2": "Basket Loano",
       "fase": "Mini-torneo 5°-7° U14 (45')",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 41,
+      "punti2": 21,
+      "giocata": true,
       "placeholder": false
     },
     {
