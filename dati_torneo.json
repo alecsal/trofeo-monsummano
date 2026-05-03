@@ -770,9 +770,9 @@
       "squadra1": "Shoemakers",
       "squadra2": "Prato Dragons",
       "fase": "🏆 FINALISSIMA 1°/2° U13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 49,
+      "punti2": 66,
+      "giocata": true,
       "placeholder": false
     },
     {
