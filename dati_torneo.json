@@ -686,9 +686,9 @@
       "squadra1": "Codigoro Basket",
       "squadra2": "Basket Marsciano",
       "fase": "Finale 3°/4° U13",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 67,
+      "punti2": 59,
+      "giocata": true,
       "placeholder": false
     },
     {
