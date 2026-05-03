@@ -798,9 +798,9 @@
       "squadra1": "Basket Loano",
       "squadra2": "San Fr. Ittiri",
       "fase": "Mini-torneo 5°-7° U14 (45')",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 37,
+      "punti2": 32,
+      "giocata": true,
       "placeholder": false
     }
   ],
