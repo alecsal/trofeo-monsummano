@@ -784,9 +784,9 @@
       "squadra1": "Shoemakers",
       "squadra2": "Basket Calcinaia",
       "fase": "🏆 FINALISSIMA 1°/2° U14",
-      "punti1": 0,
-      "punti2": 0,
-      "giocata": false,
+      "punti1": 66,
+      "punti2": 63,
+      "giocata": true,
       "placeholder": false
     },
     {
