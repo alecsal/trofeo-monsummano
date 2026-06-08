@@ -38,10 +38,7 @@
     { "nome": "Bizzarrino/Larciano", "colore": "#2ecc71", "_colore_nota": "provvisorio" },
     { "nome": "Centro", "colore": "#e74c3c", "_colore_nota": "provvisorio" },
     { "nome": "Cintolese", "colore": "#3498db", "_colore_nota": "provvisorio" },
-    { "nome": "Grotta Giusti", "colore": "#f1c40f", "_colore_nota": "provvisorio" },
     { "nome": "Grotta Parlanti", "colore": "#9b59b6", "_colore_nota": "provvisorio" },
-    { "nome": "Le Case", "colore": "#e67e22", "_colore_nota": "provvisorio" },
-    { "nome": "Pozzarello/Montevettolini", "colore": "#1abc9c", "_colore_nota": "provvisorio" },
     { "nome": "Vergine dei Pini", "colore": "#e84393", "_colore_nota": "provvisorio" }
   ],
   "squadre": [
@@ -49,58 +46,75 @@
       "nome": "Bizzarrino A",
       "rione": "Bizzarrino/Larciano",
       "lettera": "A",
-      "girone": null,
+      "girone": "A",
       "giocatori": ["Alberto Ciattini", "Lorenzo Del Vigna", "Gabriele Nelli"]
     },
     {
       "nome": "Bizzarrino B",
       "rione": "Bizzarrino/Larciano",
       "lettera": "B",
-      "girone": null,
+      "girone": "B",
       "giocatori": ["Edoardo Belli", "Alessandro Belli", "Samuele Gatoni", "Giulia Venturi", "Gianluca Malucchi"]
     },
     {
       "nome": "Centro A",
       "rione": "Centro",
       "lettera": "A",
-      "girone": null,
+      "girone": "A",
       "giocatori": ["Christian Disperati", "Lorenzo Agostini", "Samuele Nigro", "Francesco Puccini"]
     },
     {
       "nome": "Centro B",
       "rione": "Centro",
       "lettera": "B",
-      "girone": null,
+      "girone": "B",
       "giocatori": ["Matteo Anfiteatro", "Simone Fratini", "Ryan Ancillotti", "Marco Cipollini"]
     },
     {
       "nome": "Cintolese A",
       "rione": "Cintolese",
       "lettera": "A",
-      "girone": null,
-      "giocatori": ["Sadik Dungu", "Filippo Palanti", "Lorenzo Tonfoni", "(4º da definire)"]
+      "girone": "B",
+      "giocatori": ["Sadik Dungu", "Filippo Palanti", "Lorenzo Tonfoni"]
     },
     {
       "nome": "Grotta Parlanti A",
       "rione": "Grotta Parlanti",
       "lettera": "A",
-      "girone": null,
+      "girone": "A",
       "giocatori": ["Andrea Lorenzi", "Leonardo Chiodo", "Alessio Cecchi", "Matteo Doda"]
     },
     {
       "nome": "Grotta Parlanti B",
       "rione": "Grotta Parlanti",
       "lettera": "B",
-      "girone": null,
+      "girone": "B",
       "giocatori": ["Riccardo Alesio", "Gabriele Fagni", "Lorenzo Di Chiara", "Francesco Angelini"]
     },
     {
       "nome": "Vergine dei Pini A",
       "rione": "Vergine dei Pini",
       "lettera": "A",
-      "girone": null,
+      "girone": "A",
       "giocatori": ["Giammatteo Briganti", "Nicola Covino", "Achille Piazza", "Filippo Grauso"]
     }
   ],
-  "partite": []
+  "partite": [
+    { "n": 1, "giorno": "G1", "ora": "18:30", "squadra1": "Centro A", "squadra2": "Bizzarrino A", "fase": "Girone A", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 2, "giorno": "G1", "ora": "19:10", "squadra1": "Grotta Parlanti A", "squadra2": "Vergine dei Pini A", "fase": "Girone A", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 3, "giorno": "G1", "ora": "19:50", "squadra1": "Bizzarrino B", "squadra2": "Centro B", "fase": "Girone B", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 4, "giorno": "G1", "ora": "20:30", "squadra1": "Cintolese A", "squadra2": "Grotta Parlanti B", "fase": "Girone B", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 5, "giorno": "G2", "ora": "18:30", "squadra1": "Centro A", "squadra2": "Vergine dei Pini A", "fase": "Girone A", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 6, "giorno": "G2", "ora": "19:10", "squadra1": "Grotta Parlanti A", "squadra2": "Bizzarrino A", "fase": "Girone A", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 7, "giorno": "G2", "ora": "19:50", "squadra1": "Bizzarrino B", "squadra2": "Grotta Parlanti B", "fase": "Girone B", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 8, "giorno": "G2", "ora": "20:30", "squadra1": "Cintolese A", "squadra2": "Centro B", "fase": "Girone B", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 9, "giorno": "G3", "ora": "18:30", "squadra1": "Centro A", "squadra2": "Grotta Parlanti A", "fase": "Girone A", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 10, "giorno": "G3", "ora": "19:10", "squadra1": "Vergine dei Pini A", "squadra2": "Bizzarrino A", "fase": "Girone A", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 11, "giorno": "G3", "ora": "19:50", "squadra1": "Bizzarrino B", "squadra2": "Cintolese A", "fase": "Girone B", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 12, "giorno": "G3", "ora": "20:30", "squadra1": "Grotta Parlanti B", "squadra2": "Centro B", "fase": "Girone B", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 13, "giorno": "G4", "ora": "19:00", "squadra1": "1ª Girone A", "squadra2": "2ª Girone B", "fase": "Semifinale 1", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 14, "giorno": "G4", "ora": "19:45", "squadra1": "1ª Girone B", "squadra2": "2ª Girone A", "fase": "Semifinale 2", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 15, "giorno": "G5", "ora": "18:30", "squadra1": "Perdente Semifinale 1", "squadra2": "Perdente Semifinale 2", "fase": "Finale 3°/4°", "punti1": 0, "punti2": 0, "giocata": false },
+    { "n": 16, "giorno": "G5", "ora": "19:30", "squadra1": "Vincente Semifinale 1", "squadra2": "Vincente Semifinale 2", "fase": "Finalissima 1°/2°", "punti1": 0, "punti2": 0, "giocata": false }
+  ]
 }
