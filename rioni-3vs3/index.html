@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TORNEO DEI RIONI 3 vs 3 · 2026</title>
+  <meta name="description" content="3º Torneo dei Rioni 3vs3 — Monsummano Terme · 10–14 Giugno 2026 · Parco Orzali · Monsummano Terme">
+  <style>
+:root{
+  --bg:#0d0e13; --bg2:#15161d; --card:#191b24; --card2:#1f212c;
+  --red:#c01f33; --blue:#1c3a8f; --orange:#e8732a; --gold:#f1c40f;
+  --txt:#f3f4f7; --muted:#9aa0ad; --line:#2a2d3a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.section{max-width:1100px;margin:0 auto;padding:48px 18px}
+.section-title{font-size:1.9rem;font-weight:900;letter-spacing:.5px;text-transform:uppercase;
+  border-left:6px solid var(--red);padding-left:14px;margin-bottom:6px}
+.section-sub{color:var(--muted);margin-bottom:24px;padding-left:20px}
+.muted{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;min-height:78vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+  background:radial-gradient(120% 90% at 70% 10%,rgba(28,58,143,.45),transparent 55%),
+             radial-gradient(110% 90% at 20% 90%,rgba(192,31,51,.45),transparent 55%),
+             linear-gradient(160deg,#0a0b10,#15161d)}
+.hero-bg{position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.05) 1.5px,transparent 1.6px);
+  background-size:26px 26px;opacity:.6}
+.hero-inner{position:relative;padding:24px}
+.hero-kicker{text-transform:uppercase;letter-spacing:4px;color:var(--orange);font-weight:700;font-size:.85rem;margin-bottom:14px}
+.hero-title{font-size:clamp(2.6rem,9vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:2px;
+  text-transform:uppercase;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.hero-3v3{display:inline-block;margin:14px 0;font-size:clamp(1.6rem,6vw,3rem);font-weight:900;
+  color:#fff;background:linear-gradient(135deg,var(--red),var(--blue));
+  padding:4px 22px;border-radius:8px;transform:rotate(-2deg);box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.hero-place{font-size:1.05rem;color:var(--txt);margin-top:8px}
+.hero-dates{font-size:1.5rem;font-weight:800;color:var(--gold);margin-top:6px}
+.hero-edition{margin-top:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-size:.8rem}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,14,19,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;gap:6px;overflow-x:auto;padding:10px 12px}
+.nav a{padding:8px 14px;border-radius:7px;font-weight:700;font-size:.9rem;text-decoration:none;
+  white-space:nowrap;color:var(--muted)}
+.nav a:hover{background:var(--card2);color:var(--txt)}
+
+/* RIONI / SQUADRE */
+.rioni-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.rione-card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c);
+  border-radius:12px;padding:16px}
+.rione-card.vuoto{opacity:.55}
+.rione-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.rione-dot{width:14px;height:14px;border-radius:50%;background:var(--c);flex:none;box-shadow:0 0 10px var(--c)}
+.rione-head h3{font-size:1.15rem;font-weight:800}
+.rione-todo{color:var(--muted);font-style:italic;font-size:.9rem}
+.squadra{background:var(--card2);border-radius:9px;padding:11px 12px;margin-bottom:10px}
+.squadra:last-child{margin-bottom:0}
+.squadra-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
+.squadra-head h4{font-size:1rem;font-weight:800}
+.g-badge{font-size:.7rem;font-weight:800;background:var(--blue);color:#fff;padding:2px 8px;border-radius:20px}
+.roster{list-style:none;display:flex;flex-direction:column;gap:3px}
+.roster li{font-size:.9rem;color:#d6d8df;padding-left:16px;position:relative}
+.roster li:before{content:"•";position:absolute;left:2px;color:var(--c)}
+
+/* CLASSIFICA */
+.gironi-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.girone-block{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto}
+.girone-title{font-size:1.2rem;font-weight:800;margin-bottom:12px;color:var(--orange)}
+table.classifica{width:100%;border-collapse:collapse;font-size:.88rem}
+.classifica th{text-align:center;color:var(--muted);font-weight:700;padding:6px 4px;border-bottom:1px solid var(--line);font-size:.78rem}
+.classifica td{text-align:center;padding:8px 4px;border-bottom:1px solid var(--line)}
+.classifica .pos{font-weight:900;color:var(--gold);width:26px}
+.classifica .team{text-align:left;font-weight:600;white-space:nowrap}
+.classifica .team .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+.classifica .pti{font-weight:900;color:#fff}
+.classifica tr:nth-child(-n+2) .pos{color:#fff;background:linear-gradient(var(--blue),var(--blue));border-radius:5px}
+
+/* CALENDARIO */
+.giorno-block{margin-bottom:24px}
+.giorno-title{font-size:1.15rem;font-weight:800;color:var(--orange);margin-bottom:10px;
+  border-bottom:1px solid var(--line);padding-bottom:6px}
+table.calendario{width:100%;border-collapse:collapse}
+.calendario td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.calendario .ora{font-weight:800;color:var(--gold);width:60px;font-size:.95rem}
+.calendario .match{display:flex;align-items:center;gap:12px;font-weight:600}
+.calendario .match span{flex:1}
+.calendario .match span:last-of-type{text-align:right}
+.calendario .ris{flex:none!important;min-width:54px;text-align:center;font-weight:900;
+  background:var(--card2);border-radius:6px;padding:3px 8px}
+.calendario .ris.vs{color:var(--muted);font-weight:700}
+.calendario .fase{text-align:right;color:var(--muted);font-size:.8rem;white-space:nowrap}
+
+/* BRACKET */
+.bracket{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.bracket-match{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);
+  border-radius:10px;padding:14px}
+.bm-label{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px;font-weight:700}
+.bm-team{font-weight:800}
+.bm-team em{color:var(--gold);font-style:normal;margin:0 6px}
+
+/* PLACEHOLDER */
+.placeholder{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:30px;text-align:center}
+.placeholder p{margin:4px 0;font-size:1.05rem}
+
+/* INFO */
+.info-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.info-card h3{margin-bottom:10px;font-size:1.1rem}
+.info-card .big{font-size:1.3rem;font-weight:800;color:var(--orange)}
+.regole{list-style:none;display:flex;flex-direction:column;gap:8px}
+.regole li{font-size:.92rem;color:#d6d8df}
+.maps-btn{display:inline-block;margin-top:12px;background:var(--blue);color:#fff;padding:8px 16px;
+  border-radius:8px;text-decoration:none;font-weight:700;font-size:.9rem}
+.org{text-align:center;margin-top:28px;color:var(--muted)}
+
+footer{text-align:center;padding:30px 18px;color:var(--muted);border-top:1px solid var(--line);font-size:.85rem}
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <p class="hero-kicker">Sportiva — Festa dello Sport</p>
+      <h1 class="hero-title">TORNEO DEI RIONI</h1>
+      <div class="hero-3v3">3 vs 3</div>
+      <p class="hero-place">Parco Orzali · Monsummano Terme</p>
+      <p class="hero-dates">10–14 Giugno 2026</p>
+      <p class="hero-edition">3ª edizione</p>
+    </div>
+  </header><nav class="nav"><div class="nav-inner"><a href="#squadre">Squadre</a><a href="#gironi">Gironi</a><a href="#calendario">Calendario</a><a href="#finali">Finali</a><a href="#info">Info</a></div></nav>
+  <section id="squadre" class="section">
+    <h2 class="section-title">Squadre &amp; Rioni</h2>
+    <p class="section-sub">8 squadre iscritte · 8 rioni</p>
+    <div class="rioni-grid">
+      <article class="rione-card" style="--c:#2ecc71">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Bizzarrino/Larciano</h3></div>
+        
+        <div class="squadra">
+          <div class="squadra-head"><h4>Bizzarrino A</h4></div>
+          <ol class="roster"><li>Alberto Ciattini</li><li>Lorenzo Del Vigna</li><li>Gabriele Nelli</li></ol>
+        </div>
+        <div class="squadra">
+          <div class="squadra-head"><h4>Bizzarrino B</h4></div>
+          <ol class="roster"><li>Edoardo Belli</li><li>Alessandro Belli</li><li>Samuele Gatoni</li><li>Giulia Venturi</li><li>Gianluca Malucchi</li></ol>
+        </div>
+      </article>
+      <article class="rione-card" style="--c:#e74c3c">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Centro</h3></div>
+        
+        <div class="squadra">
+          <div class="squadra-head"><h4>Centro A</h4></div>
+          <ol class="roster"><li>Christian Disperati</li><li>Lorenzo Agostini</li><li>Samuele Nigro</li><li>Francesco Puccini</li></ol>
+        </div>
+        <div class="squadra">
+          <div class="squadra-head"><h4>Centro B</h4></div>
+          <ol class="roster"><li>Matteo Anfiteatro</li><li>Simone Fratini</li><li>Ryan Ancillotti</li><li>Marco Cipollini</li></ol>
+        </div>
+      </article>
+      <article class="rione-card" style="--c:#3498db">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Cintolese</h3></div>
+        
+        <div class="squadra">
+          <div class="squadra-head"><h4>Cintolese A</h4></div>
+          <ol class="roster"><li>Sadik Dungu</li><li>Filippo Palanti</li><li>Lorenzo Tonfoni</li><li>(4º da definire)</li></ol>
+        </div>
+      </article>
+      <article class="rione-card vuoto" style="--c:#f1c40f">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Grotta Giusti</h3></div>
+        <p class="rione-todo">Roster da comunicare</p>
+      </article>
+      <article class="rione-card" style="--c:#9b59b6">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Grotta Parlanti</h3></div>
+        
+        <div class="squadra">
+          <div class="squadra-head"><h4>Grotta Parlanti A</h4></div>
+          <ol class="roster"><li>Andrea Lorenzi</li><li>Leonardo Chiodo</li><li>Alessio Cecchi</li><li>Matteo Doda</li></ol>
+        </div>
+        <div class="squadra">
+          <div class="squadra-head"><h4>Grotta Parlanti B</h4></div>
+          <ol class="roster"><li>Riccardo Alesio</li><li>Gabriele Fagni</li><li>Lorenzo Di Chiara</li><li>Francesco Angelini</li></ol>
+        </div>
+      </article>
+      <article class="rione-card vuoto" style="--c:#e67e22">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Le Case</h3></div>
+        <p class="rione-todo">Roster da comunicare</p>
+      </article>
+      <article class="rione-card vuoto" style="--c:#1abc9c">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Pozzarello/Montevettolini</h3></div>
+        <p class="rione-todo">Roster da comunicare</p>
+      </article>
+      <article class="rione-card" style="--c:#e84393">
+        <div class="rione-head"><span class="rione-dot"></span><h3>Vergine dei Pini</h3></div>
+        
+        <div class="squadra">
+          <div class="squadra-head"><h4>Vergine dei Pini A</h4></div>
+          <ol class="roster"><li>Giammatteo Briganti</li><li>Nicola Covino</li><li>Achille Piazza</li><li>Filippo Grauso</li></ol>
+        </div>
+      </article></div>
+  </section>
+  <section id="gironi" class="section">
+    <h2 class="section-title">Gironi &amp; Classifica</h2>
+    <div class="placeholder">
+      <p>🎲 Sorteggio dei gironi non ancora effettuato.</p>
+      <p class="muted">2 gironi da 4 squadre. Le squadre A e B dello stesso rione finiranno in gironi diversi.</p>
+    </div>
+  </section>
+  <section id="calendario" class="section">
+    <h2 class="section-title">Calendario</h2>
+    <div class="placeholder">
+      <p>📅 Calendario in preparazione.</p>
+      <p class="muted">12 partite di girone su 10–11–12 giugno · semifinali 13 giugno · finali 14 giugno.</p>
+    </div>
+  </section>
+  <section id="finali" class="section">
+    <h2 class="section-title">Tabellone Finale</h2>
+    <div class="placeholder">
+      <p>🏆 Tabellone delle finali.</p>
+      <p class="muted">Semifinali (13 giu): 1°A–2°B e 1°B–2°A · Finali (14 giu): 3°/4° e finalissima 1°/2°.</p>
+    </div>
+  </section>
+  <section id="info" class="section">
+    <h2 class="section-title">Info</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>📍 Dove si gioca</h3>
+        <p class="big">Parco Orzali</p>
+        <p>Campo all&#x27;aperto</p>
+        <p class="muted">Parco Orzali · Monsummano Terme (PT)</p>
+        <p>Campo da basket all&#x27;aperto. Tutte le partite del torneo si giocano qui, nell&#x27;ambito della manifestazione «Sportiva — Festa dello Sport».</p>
+        <a class="maps-btn" href="https://www.google.com/maps/search/Parco+Orzali+Monsummano+Terme" target="_blank" rel="noopener">Apri su Google Maps →</a>
+      </div>
+      <div class="info-card">
+        <h3>📋 Regole</h3>
+        <ul class="regole"><li><strong>Formato:</strong> 3 vs 3</li><li><strong>Durata partita:</strong> 10 minuti</li><li><strong>Punteggio:</strong> Canestri da 1 e 2 punti (regole FIBA 3x3)</li><li><strong>Classifica:</strong> Vittoria = 2 punti, Sconfitta = 0 punti. Ordinamento: Punti → differenza canestri → canestri fatti.</li><li><strong>Fase girone:</strong> 2 gironi da 4 squadre, girone all&#x27;italiana (3 partite a testa = 12 partite totali).</li><li><strong>Fase finale:</strong> Semifinali incrociate (1°A–2°B / 1°B–2°A), poi finale 3°/4° e finalissima 1°/2°.</li></ul>
+      </div>
+    </div>
+    <p class="org">Organizzato da <strong>Shoemakers Basketball Monsummano</strong> · in collaborazione con <strong>Sportiva</strong></p>
+  </section>
+  <footer>
+    3º Torneo dei Rioni 3vs3 — Monsummano Terme · 10–14 Giugno 2026<br>
+    Pagina generata automaticamente da <code>dati_torneo.json</code>
+  </footer>
+</body>
+</html>

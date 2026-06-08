@@ -1,0 +1,106 @@
+{
+  "_comment": "FILE SORGENTE UNICO per il Torneo dei Rioni 3vs3 2026. Modifica qui per aggiornare index.html (via genera.py).",
+  "torneo": {
+    "nome": "TORNEO DEI RIONI",
+    "sottotitolo": "3 vs 3",
+    "nome_esteso": "3º Torneo dei Rioni 3vs3 — Monsummano Terme",
+    "edizione": 3,
+    "anno": 2026,
+    "date": "10–14 Giugno 2026",
+    "luogo": "Parco Orzali · Monsummano Terme",
+    "manifestazione": "Sportiva — Festa dello Sport",
+    "organizzatore": "Shoemakers Basketball Monsummano",
+    "in_collaborazione_con": "Sportiva"
+  },
+  "giorni": {
+    "G1": "Mercoledì 10 Giugno 2026",
+    "G2": "Giovedì 11 Giugno 2026",
+    "G3": "Venerdì 12 Giugno 2026",
+    "G4": "Sabato 13 Giugno 2026",
+    "G5": "Domenica 14 Giugno 2026"
+  },
+  "impianto": {
+    "nome": "Parco Orzali",
+    "tipo": "Campo all'aperto",
+    "indirizzo": "Parco Orzali · Monsummano Terme (PT)",
+    "descrizione": "Campo da basket all'aperto. Tutte le partite del torneo si giocano qui, nell'ambito della manifestazione «Sportiva — Festa dello Sport».",
+    "maps_url": "https://www.google.com/maps/search/Parco+Orzali+Monsummano+Terme"
+  },
+  "regole": {
+    "formato": "3 vs 3",
+    "durata_partita": "10 minuti",
+    "punteggio": "Canestri da 1 e 2 punti (regole FIBA 3x3)",
+    "classifica": "Vittoria = 2 punti, Sconfitta = 0 punti. Ordinamento: Punti → differenza canestri → canestri fatti.",
+    "fase_girone": "2 gironi da 4 squadre, girone all'italiana (3 partite a testa = 12 partite totali).",
+    "fase_finale": "Semifinali incrociate (1°A–2°B / 1°B–2°A), poi finale 3°/4° e finalissima 1°/2°."
+  },
+  "rioni": [
+    { "nome": "Bizzarrino/Larciano", "colore": "#2ecc71", "_colore_nota": "provvisorio" },
+    { "nome": "Centro", "colore": "#e74c3c", "_colore_nota": "provvisorio" },
+    { "nome": "Cintolese", "colore": "#3498db", "_colore_nota": "provvisorio" },
+    { "nome": "Grotta Giusti", "colore": "#f1c40f", "_colore_nota": "provvisorio" },
+    { "nome": "Grotta Parlanti", "colore": "#9b59b6", "_colore_nota": "provvisorio" },
+    { "nome": "Le Case", "colore": "#e67e22", "_colore_nota": "provvisorio" },
+    { "nome": "Pozzarello/Montevettolini", "colore": "#1abc9c", "_colore_nota": "provvisorio" },
+    { "nome": "Vergine dei Pini", "colore": "#e84393", "_colore_nota": "provvisorio" }
+  ],
+  "squadre": [
+    {
+      "nome": "Bizzarrino A",
+      "rione": "Bizzarrino/Larciano",
+      "lettera": "A",
+      "girone": null,
+      "giocatori": ["Alberto Ciattini", "Lorenzo Del Vigna", "Gabriele Nelli"]
+    },
+    {
+      "nome": "Bizzarrino B",
+      "rione": "Bizzarrino/Larciano",
+      "lettera": "B",
+      "girone": null,
+      "giocatori": ["Edoardo Belli", "Alessandro Belli", "Samuele Gatoni", "Giulia Venturi", "Gianluca Malucchi"]
+    },
+    {
+      "nome": "Centro A",
+      "rione": "Centro",
+      "lettera": "A",
+      "girone": null,
+      "giocatori": ["Christian Disperati", "Lorenzo Agostini", "Samuele Nigro", "Francesco Puccini"]
+    },
+    {
+      "nome": "Centro B",
+      "rione": "Centro",
+      "lettera": "B",
+      "girone": null,
+      "giocatori": ["Matteo Anfiteatro", "Simone Fratini", "Ryan Ancillotti", "Marco Cipollini"]
+    },
+    {
+      "nome": "Cintolese A",
+      "rione": "Cintolese",
+      "lettera": "A",
+      "girone": null,
+      "giocatori": ["Sadik Dungu", "Filippo Palanti", "Lorenzo Tonfoni", "(4º da definire)"]
+    },
+    {
+      "nome": "Grotta Parlanti A",
+      "rione": "Grotta Parlanti",
+      "lettera": "A",
+      "girone": null,
+      "giocatori": ["Andrea Lorenzi", "Leonardo Chiodo", "Alessio Cecchi", "Matteo Doda"]
+    },
+    {
+      "nome": "Grotta Parlanti B",
+      "rione": "Grotta Parlanti",
+      "lettera": "B",
+      "girone": null,
+      "giocatori": ["Riccardo Alesio", "Gabriele Fagni", "Lorenzo Di Chiara", "Francesco Angelini"]
+    },
+    {
+      "nome": "Vergine dei Pini A",
+      "rione": "Vergine dei Pini",
+      "lettera": "A",
+      "girone": null,
+      "giocatori": ["Giammatteo Briganti", "Nicola Covino", "Achille Piazza", "Filippo Grauso"]
+    }
+  ],
+  "partite": []
+}
